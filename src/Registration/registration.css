@@ -1,0 +1,178 @@
+
+.container-manual{
+    overflow: hidden;
+    width:100%;
+    height:100%;
+    position: absolute;
+    left:0;
+    top:0;
+    z-index:-1;
+    background-image: url("../Banner/bg-0417f9d0.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+
+}
+
+.cont .title-logo{
+    position: relative;
+    width: 150px;
+}
+
+.cont {
+    position: relative;
+    top:25%;
+    left:30%;
+    /* padding:6px 85px 20px 95px; */
+    color: black;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 16px;
+    box-shadow: 0 4px 100px rgba(0, 0, 0, 0.1), 0 0 10px rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    width: 35%;
+    height: 50%; 
+}
+
+
+.btn{
+    position:relative;
+    background-color: black;
+    border:1px solid transparent;
+    padding:12px 35px 12px 35px;
+    color:white;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all .2s ease; 
+    letter-spacing: .1em;
+}
+
+.btn:hover{
+    background-color:white;
+    color:black;
+}
+
+#ncp-signup label{
+    color:black;
+    font-size:30px;
+}
+
+.ncp-signup{
+    overflow:auto;
+    overflow-x: hidden;
+    padding-top:40px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan&display=swap');
+
+.ncp-signup h2 {
+    position:relative;
+    left:119px;
+    font-size: 33px;
+    font-weight: 700;
+    color:#111827;
+    font-family:"League Spartan", sans-serif;
+}
+ 
+
+.ncp-signup form input, .ncp-signup form textarea {
+    position: relative;
+    display: flex;
+    left:30px;
+    width: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid #0000001f;
+    border-radius: 20px;
+    color: black;
+    margin: 0 0 8px 0;
+    padding: 18px 26px;
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: 0.8px;
+    transition: 0.3s ease-in-out;
+}
+
+
+.ncp-signup form input:focus, .ncp-signup form textarea:focus {
+    background: rgba(255, 255, 255, 1);
+    color: #121212;
+
+}
+.ncp-signup form input::placeholder, .ncp-signup form textarea::placeholder {
+    font-size: 16px;
+    font-weight: 400;
+    color: black;
+}
+.ncp-signup form input:focus::placeholder, .ncp-signup form textarea:focus::placeholder {
+    color: #121212;
+    opacity: 0.8;
+    
+}
+
+
+
+.ncp-signup form button {
+    font-weight: 700;
+    left:30%;
+    color: #000;
+    background-color: #fff;
+    padding: 18px 58px;
+    font-size: 18px;
+    margin-top: 15px;
+    border-radius: 0;
+    position: relative;
+    transition: 0.3s ease-in-out;
+    border:1px solid #121212;
+}
+.ncp-signup form button span {
+    z-index: 1;
+    position: relative;
+}
+.ncp-signup form button:hover {
+    color: #fff;
+}
+
+
+.ncp-signup form button::before {
+    content: "";
+    background: #121212;
+    width: 0;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    transition: 0.3s ease-in-out;
+}
+.ncp-signup form button:hover::before {
+    width: 100%;
+    
+}
+
+
+
+.cont::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+.cont::-webkit-scrollbar
+{
+	width: 6px;
+}
+
+.cont::-webkit-scrollbar-thumb
+{
+	-webkit-box-shadow: transparent;
+	background-color: #2956a8;
+}
+
+
+.active-signup{
+    background-color:white;
+    color:black;   
+}
