@@ -30,8 +30,8 @@
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.3);
-    width: 35%;
-    height: 50%; 
+    width: 40%;
+    height: 60%; 
 }
 
 
@@ -39,7 +39,7 @@
     position:relative;
     background-color: black;
     border:1px solid transparent;
-    padding:12px 35px 12px 35px;
+    padding:14px 32px 12px 35px;
     color:white;
     font-size: 1em;
     font-weight: bold;
@@ -69,19 +69,22 @@
 
 .ncp-signup h2 {
     position:relative;
-    left:119px;
+    text-align: center;
     font-size: 33px;
     font-weight: 700;
+    letter-spacing:0.2rem;
     color:#111827;
     font-family:"League Spartan", sans-serif;
+    margin-top:0;
 }
- 
+
 
 .ncp-signup form input, .ncp-signup form textarea {
     position: relative;
     display: flex;
-    left:30px;
-    width: 50%;
+    left:65px;
+    width: 70%;
+    align-items: center;
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid #0000001f;
     border-radius: 20px;
@@ -92,12 +95,40 @@
     font-size: 18px;
     letter-spacing: 0.8px;
     transition: 0.3s ease-in-out;
+    margin-top: 10px;
+ 
+}
+
+.ncp-signup form input:focus,#course:focus,
+.ncp-signup form textarea:focus,#course:focus {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Adjust the values based on your preference */
+    outline: none; /* Remove the default focus outline if needed */
 }
 
 
-.ncp-signup form input:focus, .ncp-signup form textarea:focus {
-    background: rgba(255, 255, 255, 1);
-    color: #121212;
+#course{
+    position: relative;
+    display: flex;
+    left:65px;
+    width: 79%;
+    align-items: center;
+    margin-bottom:10px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid #0000001f;
+    border-radius: 20px;
+    color: black;
+    margin: 0 0 8px 0;
+    padding: 18px 36px;
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: 0.8px;
+    transition: 0.3s ease-in-out;
+}
+
+
+.ncp-signup form input:focus, .ncp-signup form textarea:focus, #course:focus {
+    background: transparent;
+    border:2px solid #2956a8;
 
 }
 .ncp-signup form input::placeholder, .ncp-signup form textarea::placeholder {
@@ -120,11 +151,11 @@
     background-color: #fff;
     padding: 18px 58px;
     font-size: 18px;
-    margin-top: 15px;
+    margin-top: 25px;
     border-radius: 0;
     position: relative;
     transition: 0.3s ease-in-out;
-    border:1px solid #121212;
+    border:1px solid transparent;
 }
 .ncp-signup form button span {
     z-index: 1;
@@ -137,7 +168,7 @@
 
 .ncp-signup form button::before {
     content: "";
-    background: #121212;
+    background: #2956a8;
     width: 0;
     height: 100%;
     position: absolute;
