@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Import Axios
 import "./registration.css";
-import { Container, Row, Col } from "react-bootstrap";
-import Form from 'react-bootstrap/Form';
 
 
 const Registration = () => {
@@ -96,45 +93,33 @@ const Registration = () => {
             {currentSection === 'ncp-signup' && (
                 <div className="ncp-signup">
                 <h2 className="mb-2 text-center text-4xl pb-10 font-bold tracking-tight  text-gray-900 ">Student Registration</h2>
+                <p style={{textAlign:"center"}}>Please Provide Registration Details here.</p>
 
-                <Container style={{marginTop:"10%",marginBottom:"10px"}}>
-                    <form onSubmit={handleSubmit} >
-                        <input type="text" value={formDetails.firstName} placeholder="First Name" onChange={(e) => onFormUpdate('firstName', e.target.value)} />
-                        <input type="text" value={formDetails.lasttName} placeholder="Last Name" onChange={(e) => onFormUpdate('lastName', e.target.value)}/>
-                        <input type="text" value={formDetails.email} placeholder="Email" onChange={(e)=>onFormUpdate("email",e.target.value)}/>
-                        <input type="text" value={formDetails.currentYear} placeholder="Current Year" onChange={(e)=> onFormUpdate("currentYear",e.target.value)}/>
-                        <input type="text" value={formDetails.currentYear} placeholder="Final Year" onChange={(e)=> onFormUpdate("currentYear",e.target.value)}/>
-                        <input type="password" value={formDetails.password} placeholder="Password" onChange={(e)=> onFormUpdate("password",e.target.value)}/>
-                        <select
-                            id="course"
-                            value={formInitialDetails.course}
-                            onChange={(e)=> onFormUpdate("course",e.target.value)}
-                            required
-                            style={{paddingLeft:"30px"}}
-                        >
-                            <option className="options" value="" >Select a Course</option>
-                            <option className="options" value="CS">CS</option>
-                            <option className="options" value="BAF">BAF</option>
-                            <option className="options" value="IT">IT</option>
-                            {/* Add more options based on available courses */}
-                        </select>
-                        <input
-                            type="number"
-                            id="numericRFID"
-                            value={formDetails.numericRFID}
-                            placeholder="RFID"
-                            onChange={handleNumericRFIDChange}
-                            required
-                        />
-                        {formDetails.numericRFID.length !== 10 && <p style={{ color: 'red',textAlign:"center",fontWeight:"bold" }}>Numeric RFID must be 10 digits</p>}
-                        <button type="submit" style={{marginBottom:"30px",left:"32%"}}><span>Register</span></button>
-                        {
-                        status.message &&
-                            <p className={status.success === false ? "danger" : "success"}>{status.message}</p>
-                        }
-                    </form>
+                <form onSubmit={handleSubmit} >
+    
+                    <input type="text" value={formDetails.firstName} placeholder="First Name" onChange={(e) => onFormUpdate('firstName', e.target.value)} />
+                    <input type="text" value={formDetails.lasttName} placeholder="Last Name" onChange={(e) => onFormUpdate('lasttName', e.target.value)} />
+                    <input type="text" value={formDetails.email} placeholder="Email" onChange={(e)=>onFormUpdate("email",e.target.value)}/>
+                    <input type="text" value={formDetails.currentYear} placeholder="Current Year" onChange={(e)=> onFormUpdate("currentYear",e.target.value)}/>
+                    <input type="text" value={formDetails.course} placeholder="Course" onChange={(e)=> onFormUpdate("course",e.target.value)}/>
+                    <input type="password" value={formDetails.password} placeholder="Password" onChange={(e)=> onFormUpdate("password",e.target.value)}/>
 
-                </Container>
+                    <input
+                        type="number"
+                        id="numericRFID"
+                        value={formDetails.numericRFID}
+                        placeholder="RFID"
+                        onChange={handleNumericRFIDChange}
+                        required
+                    />
+                    {formDetails.numericRFID.length !== 10 && <p style={{ color: 'red',textAlign:"center",fontWeight:"bold" }}>Numeric RFID must be 10 digits</p>}
+                    <button type="submit" style={{marginBottom:"30px",left:"32%"}}><span>Register</span></button>
+                    {
+                    status.message &&
+                        <p className={status.success === false ? "danger" : "success"}>{status.message}</p>
+                    }
+                </form>
+              
                     
                 </div>
             )}

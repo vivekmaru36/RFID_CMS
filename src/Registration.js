@@ -141,7 +141,6 @@ const Registration = () => {
           <input type="password" id="password" value={password} onChange={(e)=>setPassword(e.target.value)} required/>
         </div>
         <div>
-          <label htmlFor="course" style={{paddingRight: '55px'  }}>Select Course:</label>
           <select
             id="course"
             value={course}

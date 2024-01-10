@@ -99,7 +99,7 @@
  
 }
 
-.ncp-signup form input:focus,#course:focus,
+.ncp-signup form input:focus,
 .ncp-signup form textarea:focus,#course:focus {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Adjust the values based on your preference */
     outline: none; /* Remove the default focus outline if needed */
@@ -127,7 +127,6 @@
 
 
 .ncp-signup form input:focus, .ncp-signup form textarea:focus, #course:focus {
-    background: transparent;
     border:2px solid #2956a8;
 
 }

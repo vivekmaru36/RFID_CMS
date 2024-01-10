@@ -16,6 +16,8 @@ import './App.css';
 import './Navbar.css';
 import './Dashboard/Dashboard.css';
 import {Banner} from "./Banner/Banner"
+import Otp from "./otp/Otp"
+
 //import Features from "./Features/Features";
 
 const App = () => {
@@ -28,6 +30,7 @@ const App = () => {
         <div className="container">
           <Routes>
             <Route path="/" element={<div><Banner /><Home /></div>} />
+            <Route path="/otp" element={<Otp/>}></Route>
             <Route path="/about" element={<About />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />

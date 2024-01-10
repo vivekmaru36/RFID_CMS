@@ -28,7 +28,7 @@ const { generateOTP } = require("./services/otp");
 const { sendOTP, sendResetMail } = require("./services/emailService");
 
 
-const Register = require("./models/register");
+const studentRegister = require("./models/studentRegister");
 
 
 app.post("/signup", async (req, res) => {
@@ -36,15 +36,15 @@ app.post("/signup", async (req, res) => {
     firstName,
     lasttName,
     email,
-    phone,
-    collegename,
-    dob,
+    currentYear,
     password,
+    course,
+    numericRFID,
   } = req.body;
     
   try {
 
-    const alreadyExists = await Register.findOne({ email });
+    //const alreadyExists = await studentRegister.findOne({ email });
 
     const OTP = generateOTP();
     const emailRes = await sendOTP({ OTP, to: email });
@@ -56,22 +56,22 @@ app.post("/signup", async (req, res) => {
 
     const hashPassword = await bcrypt.hash(password, 10);
 
-    const user = new Register({
+    const student = new studentRegister({
       firstName,
       lasttName,
       email,
-      phone,
-      collegename,
-      dob,
+      currentYear,
+      course,
+      numericRFID,
       password: hashPassword,
-      ncpid: OTP,
+      otp: OTP,
 
     });
 
-    await user.save();
+    await student.save();
   
-    user.password = undefined;
-    user.ncpid = undefined;
+    student.password = undefined;
+    student.otp = undefined;
 
     res.status(200).json({ code: 200 });
 
