@@ -1,4 +1,3 @@
-
 .container-manual{
     overflow: hidden;
     width:100%;
@@ -10,7 +9,6 @@
     background-image: url("../Banner/bg-0417f9d0.svg");
     background-size: cover;
     background-repeat: no-repeat;
-
 }
 
 .cont .title-logo{
@@ -96,7 +94,6 @@
     letter-spacing: 0.8px;
     transition: 0.3s ease-in-out;
     margin-top: 10px;
- 
 }
 
 .ncp-signup form input:focus,
@@ -104,7 +101,6 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Adjust the values based on your preference */
     outline: none; /* Remove the default focus outline if needed */
 }
-
 
 #course{
     position: relative;
@@ -138,7 +134,6 @@
 .ncp-signup form input:focus::placeholder, .ncp-signup form textarea:focus::placeholder {
     color: #121212;
     opacity: 0.8;
-    
 }
 
 
@@ -156,6 +151,8 @@
     transition: 0.3s ease-in-out;
     border:1px solid transparent;
 }
+
+
 .ncp-signup form button span {
     z-index: 1;
     position: relative;
@@ -180,7 +177,6 @@
     width: 100%;
     
 }
-
 
 
 .cont::-webkit-scrollbar-track

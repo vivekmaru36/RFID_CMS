@@ -5,6 +5,29 @@
     
 }
 
+.otp-box button {
+    position: relative;
+    font-weight: 700;
+    color: #000;
+    background-color: #fff;
+    padding: 18px 58px;
+    font-size: 18px;
+    margin-top: 25px;
+    border-radius: 0;
+    position: relative;
+    transition: 0.3s ease-in-out;
+    border:1px solid transparent;
+}
+
+
+.otp-box button:hover {
+    color: white;
+    background-color:#2956a8;
+}
+
+
+
+
 .container-otp{
     overflow: hidden;
     width:100%;

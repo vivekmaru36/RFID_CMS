@@ -1,8 +1,8 @@
 const MAIL_SETTINGS = {
     service: "gmail",
     auth: {
-      user: "socialblend7@gmail.com",
-      pass: "dchiovshzsvydhgl",
+      user: "group14rfid@gmail.com",
+      pass: "hucwoikawijavyil",
     },
   };
   
@@ -14,16 +14,16 @@ const MAIL_SETTINGS = {
       let info = await transporter.sendMail({
         from: MAIL_SETTINGS.auth.user,
         to: params.to,
-        subject: "Hello ✔",
+        subject: "Hello 👋",
         html: `
         <div
           class="container"
           style="max-width: 90%; margin: auto; padding-top: 20px"
         >
-          <h2>NCP ID.</h2>
-          <p style="margin-bottom: 30px;">THIS IS YOUR NCP ID</p>
+          <h2>OTP</h2>
+          <p style="margin-bottom: 30px;">THIS IS YOUR OTP</p>
           <h1 style="font-size: 40px; letter-spacing: 2px; text-align:center;">${params.OTP}</h1>
-     </div>
+        </div>
       `,
       });
       return info;
