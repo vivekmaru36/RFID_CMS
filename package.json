@@ -58,18 +58,5 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
-  },
-  "description": "1) did changes in login.js and regstration.js so they don't route to dashboard even if login or registeration is failed\r 2) made backend only accept unique numeric rfids\r 3) created logic for password checking in login here : https://github.com/vivekmaru36/Crud_operations_with_web_api/blob/master/Crud_app_with_mongo/Data_access_layer/CrudOperationsDL.cs\r 4) added suraj's dashboard's menu bar and no css was changed done it using 'Switch' inside app.js where navbar only displays on other pages except on dashboard\r 5) The login is now handled just based on an rfid for fetching :\r        https://github.com/vivekmaru36/Crud_operations_with_web_api/blob/e772b084692818f71bd2635d9f6ab2c0fd42c83d/Crud_app_with_mongo/Data_access_layer/CrudOperationsDL.cs\r 6) added logout functionality : https://github.com/vivekmaru36/Login_with_fetch_done/blob/main/src/Dashboard/Dashboard.js",
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vivekmaru36/Login_with_fetch_done.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/vivekmaru36/Login_with_fetch_done/issues"
-  },
-  "homepage": "https://github.com/vivekmaru36/Login_with_fetch_done#readme"
+  }
 }
