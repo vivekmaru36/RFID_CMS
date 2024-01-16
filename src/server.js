@@ -7,10 +7,7 @@ const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const router = express.Router();
-
-
 //const nodemailer = require("nodemailer");
-
 mongoose.set("strictQuery", true);
 mongoose.connect("mongodb://0.0.0.0:27017/register");
 
