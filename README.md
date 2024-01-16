@@ -1,3 +1,20 @@
+## INSTALL THE DEPENDENCIES
+```
+npm install
+```
+
+## START THE FRONTEND
+```
+npm start
+```
+
+
+## START THE SERVER
+```
+node server
+```
+
+
 # changes :
 
 1) did changes in login.js and regstration.js so they don't route to dashboard even if login or registeration is failed
