@@ -1,6 +1,3 @@
-require("dotenv").config();
-
-
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -9,6 +6,8 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const router = express.Router();
+
 
 //const nodemailer = require("nodemailer");
 
