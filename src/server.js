@@ -34,8 +34,6 @@ const { sendOTP, sendResetMail } = require("./services/emailService");
 const studentRegister = require("./models/studentRegister");
 const teacherRegister = require("./models/teacherRegister");
 
-const checkAuth = require("./middleware/checkAuth");
-
 
 
 const JWT_SECRECT_KEY="47d39093940795f6c54900b31345b29d3ff30bd9ac8510ea35b90feb3d25ab678bd50cc5e7d13e02ce6a1f1d8c5cd729c2fa"
@@ -221,6 +219,71 @@ app.post("/tsignup", async (req, res) => {
     });
   }
 });
+
+
+// Login
+app.post("/login", async (req, res) => {
+  const { rfid, password } = req.body;
+  try {
+
+    const isEmailExistsSt = await studentRegister.findOne({ numericRFID:rfid });
+
+    const isEmailExistsTe = await teacherRegister.findOne({ rfidno:rfid });
+
+
+    if (
+      isEmailExistsSt &&
+      (await bcrypt.compare(password, isEmailExistsSt.password))
+    ) {
+      
+      const token = jwt.sign({ student: isEmailExistsSt }, JWT_SECRECT_KEY, {
+        expiresIn: "1d",
+      });
+      const options = {
+        expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
+        path: "/",
+      };
+
+      return res
+        .status(200)
+        .cookie("token", token, options)
+        .json({ success: true,"token":token });
+    }
+
+    if (
+      isEmailExistsTe &&
+      (await bcrypt.compare(password, isEmailExistsTe.password))
+    ) {
+      
+      const token = jwt.sign({ teacher: isEmailExistsTe }, JWT_SECRECT_KEY, {
+        expiresIn: "1d",
+      });
+      const options = {
+        expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
+        path: "/",
+      };
+      return res
+        .status(200)
+        .cookie("token", token, options)
+        .json({ success: true,"token":token });
+    }
+
+    
+
+    return res.status(401).json({
+      message: "Email/Password is Invalid!",
+    });
+  } catch (err) {
+
+    console.log(err);
+    return res.status(500).json({
+      err,
+      message: "Something went wrong!",
+    });
+  }
+});
+
+
 
 app.get("/check-auth", async(req, res) => {
   return res.status(200).json(req.cookies.token);
