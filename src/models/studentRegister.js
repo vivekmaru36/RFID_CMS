@@ -25,6 +25,10 @@ const studentSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    otp: {
+        type: Number,
+        required: true,
+    },
     course: {
         type: String,
         required: true,
@@ -32,6 +36,10 @@ const studentSchema = new mongoose.Schema({
     numericRFID: {
         type: String,
         required: true,
+    },
+    isVerified: {
+        type: String,
+        required: true
     }
 });
 

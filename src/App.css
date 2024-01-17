@@ -344,3 +344,16 @@ h3{
   box-shadow:9px 6px 18px rgba(0,0,0,.9),2px 2px 4px rgba(0,0,0,.9), 4px 4px 8px rgba(0,0,0,.9), 8px 8px 16px rgba(0,0,0,.9);
 
 }
+
+
+.danger{
+  font-size: 25px;
+  color:red;
+  font-weight: bold;
+}
+
+.success{
+  font-size: 25px;
+  color:green;
+  font-weight: bold;
+}

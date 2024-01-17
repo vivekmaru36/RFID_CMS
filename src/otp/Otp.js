@@ -1,18 +1,27 @@
 import React, { useState } from 'react';
 import OtpInput from 'react-otp-input';
 import './otp.css';
+import Cookies from 'js-cookie';
+import { useNavigate } from "react-router-dom";
 
 export default function App() {
   const [otp, setOtp] = useState('');
   const [buttonText, setButtonText] = useState('Submit');
   const [status, setStatus] = useState({});
+  const [error,setError] = useState("");
+
+
+  const navigate = useNavigate();
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(otp);
 
     // Set button text to "Sending..."
     setButtonText('Sending...');
+
+    const token = Cookies.get("token");
+    setError("Error");
 
     try {
       let response = await fetch('http://127.0.0.1:5000/otp', {
@@ -20,20 +29,26 @@ export default function App() {
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
         },
-        body: JSON.stringify({ otp }),
+        body: JSON.stringify({ otp,token }),
       });
 
       let result = await response.json();
 
-      if (result.code === 200) {
+      if (result.success) {
+        console.log(result.token);
+        
         setStatus({
           success: true,
           message: 'Data sent successfully',
         });
-      } else {
+
+        navigate("/verified");
+
+      } 
+      else {
         setStatus({
           success: false,
-          message: 'Something went wrong, please try again later.',
+          message: result.message,
         });
       }
     } catch (error) {
@@ -74,6 +89,11 @@ export default function App() {
           >
             <span>{buttonText}</span>
           </button>
+
+          {
+            status.message &&
+            <p style={{textAlign:"center",fontSize:"30px"}}className={status.success === false ? "danger" : "success"}>{status.message}</p>
+          }
         </form>
       </div>
     </div>

@@ -41,6 +41,54 @@ const checkAuth = require("./middleware/checkAuth");
 const JWT_SECRECT_KEY="47d39093940795f6c54900b31345b29d3ff30bd9ac8510ea35b90feb3d25ab678bd50cc5e7d13e02ce6a1f1d8c5cd729c2fa"
 
 
+app.post("/otp", async (req, res) => {
+  const { otp,token } = req.body;  // Destructure otp directly from req.body
+
+  try {
+
+    const decode = jwt.verify(token,JWT_SECRECT_KEY);
+    let emailExists;
+
+    if (decode.student) {
+      emailExists = await studentRegister.findOne({ email: decode.student.email });
+    } else if (decode.teacher) {
+      emailExists = await teacherRegister.findOne({ email: decode.teacher.email });
+    }
+
+
+    if (emailExists != null && otp == emailExists.otp) {
+      const updateField = decode.student ? 'student' : 'teacher';
+
+      await (decode.student ? studentRegister : teacherRegister).updateOne(
+        { email: decode[updateField].email },
+        {
+          $set: {
+            isVerified: true
+          },
+        }
+      );
+
+      const token = jwt.sign({ student: emailExists }, JWT_SECRECT_KEY, {
+        expiresIn: "1d",
+      });
+      res.cookie("token", token).status(200).json({ success: true,"token":token });
+
+    } 
+    else {
+      return res.status(401).json({
+        message: "Invalid otp",
+        success: false
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      err,
+      message: "Internal Server Error",
+    });
+  }
+});
+
 app.post("/signup", async (req, res) => {
   const {
     firstName,
@@ -54,7 +102,15 @@ app.post("/signup", async (req, res) => {
     
   try {
 
-    //const alreadyExists = await studentRegister.findOne({ email });
+    const alreadyExists = await studentRegister.findOne({ email });
+
+    if (alreadyExists != null) {
+      return res.status(409).json({
+        success: false,
+        message: "Email Already In Use!"
+      });
+    }
+
 
     const OTP = generateOTP();
     const emailRes = await sendOTP({ OTP, to: email });
@@ -75,7 +131,7 @@ app.post("/signup", async (req, res) => {
       numericRFID,
       password: hashPassword,
       otp: OTP,
-
+      isVerified: false
     });
 
     await student.save();
@@ -87,12 +143,9 @@ app.post("/signup", async (req, res) => {
       expiresIn: "1d",
     });
 
-    const options = {
-      expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
-      path: "/",
-    };
+   
 
-    res.cookie("token", token, options).status(200).json({ success: true,"token":token });
+    res.cookie("token", token).status(200).json({ success: true,"token":token });
   } catch (err) {
     console.log(err);
     return res.status(500).json({
@@ -115,7 +168,14 @@ app.post("/tsignup", async (req, res) => {
   try {
 
 
-    //const alreadyExists = await studentRegister.findOne({ email });
+    const alreadyExists = await teacherRegister.findOne({ email });
+
+    if (alreadyExists != null) {
+      return res.status(409).json({
+        success: false,
+        message: "Email Already In Use!"
+      });
+    }
 
     const OTP = generateOTP();
     const emailRes = await sendOTP({ OTP, to: email });
@@ -134,6 +194,7 @@ app.post("/tsignup", async (req, res) => {
       rfidno,
       password: hashPassword,
       otp: OTP,
+      isVerified: false
     });
 
     await teacher.save();
@@ -150,7 +211,7 @@ app.post("/tsignup", async (req, res) => {
       path: "/",
     };
 
-    res.cookie("token", token, options).status(200).json({ success: true });
+    res.cookie("token", token, options).status(200).json({ success: true,"token":token  });
 
   } catch (err) {
     console.log(err);
@@ -162,5 +223,5 @@ app.post("/tsignup", async (req, res) => {
 });
 
 app.get("/check-auth", async(req, res) => {
-  return res.status(200).json("pras");
+  return res.status(200).json(req.cookies.token);
 });

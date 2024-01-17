@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import "./registration.css";
 import Cookies from 'js-cookie';
+/* import useAuth from "./context/useAuth";*/
+import { useNavigate } from "react-router-dom";
+
 
 
 const Registration = () => {
+    /* const [otp,setOtp] = useState(null);
+    const auth = useAuth(); */
+
+    const navigate = useNavigate();
+
     const formInitialDetails = {
       firstName: '',
       lasttName: '',
@@ -39,10 +46,18 @@ const Registration = () => {
         let result = await response.json();
         setFormDetails(formInitialDetails);
         if (result.success) {
-          console.log(result.token);
-          setStatus({ succes: true, message: 'Data sent successfully'});
+
+          if (result.token){
+            Cookies.set("token",result.token);
+            navigate("/otp");
+          }
+          else{
+            navigate("/registration");
+          }
+
+          setStatus({ success: true, message: 'Data sent successfully'});
         } else {
-            setStatus({ succes: false, message: result.message});
+            setStatus({ success: false, message: result.message});
         }
       }catch(error){
         console.log("Error",error);
@@ -66,40 +81,50 @@ const Registration = () => {
     const [password,setPassword]=useState('')
 
     const teacherSubmit = async (e) => {
-        e.preventDefault();
-        setButtonText("Sending...");
+      e.preventDefault();
+      setButtonText("Sending...");
 
-        const formData = {
-          firstName: firstName,
-          lastName: lastName,
-          email: email,
-          rfidno: numericRFID,
-          password:password
-        };
-        
-        try{
-          let response = await fetch("http://127.0.0.1:5000/tsignup", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json;charset=utf-8",
-          },
-            body: JSON.stringify(formData),
-          });
-          let result = await response.json();
-
-          if (result.success) {
-            setStatus({ succes: true, message: 'Data sent successfully'});
-          } else {
-            setStatus({ succes: false, message: result.message});
-          }
-        }catch(error){
-          console.log("Error",error);
-        }
-        finally{
-          setButtonText("Singup");
-        }
-        
+      const formData = {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        rfidno: numericRFID,
+        password:password
       };
+      
+      try{
+        let response = await fetch("http://127.0.0.1:5000/tsignup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+        },
+          body: JSON.stringify(formData),
+        });
+        let result = await response.json();
+
+        if (result.success) {
+
+          if (result.token){
+            Cookies.set("token",result.token);
+            navigate("/otp");
+          }
+          else{
+            navigate("/registration");
+          }
+
+          setStatus({ success: true, message: 'Data sent successfully'});
+        } 
+        else {
+          setStatus({ success: false, message: result.message});
+        }
+      }catch(error){
+        console.log("Error",error);
+      }
+      finally{
+        setButtonText("Singup");
+      }
+      
+    };
 
     const [currentSection, setCurrentSection] = useState('ncp-signup');
 
@@ -157,6 +182,7 @@ const Registration = () => {
                   />
                   {formDetails.numericRFID.length !== 10 && <p style={{ color: 'red',textAlign:"center",fontWeight:"bold" }}>Numeric RFID must be 10 digits</p>}
                   <button type="submit" style={{marginBottom:"30px",left:"32%"}}><span>{buttonText}</span></button>
+
                   {
                   status.message &&
                       <p style={{textAlign:"center"}}className={status.success === false ? "danger" : "success"}>{status.message}</p>
