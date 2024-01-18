@@ -45,6 +45,7 @@ app.post("/otp", async (req, res) => {
   try {
 
     const decode = jwt.verify(token,JWT_SECRECT_KEY);
+    console.log(decode)
     let emailExists;
 
     if (decode.student) {
@@ -167,11 +168,20 @@ app.post("/tsignup", async (req, res) => {
 
 
     const alreadyExists = await teacherRegister.findOne({ email });
+    const rfidExistsInStudent = await studentRegister.findOne({ numericRFID: rfidno });
+    const rfidExistsInTeacher = await teacherRegister.findOne({ rfidno });
 
     if (alreadyExists != null) {
       return res.status(409).json({
         success: false,
         message: "Email Already In Use!"
+      });
+    }
+
+    if (rfidExistsInStudent != null || rfidExistsInTeacher != null) {
+      return res.status(409).json({
+        success: false,
+        message: "RFID Already In Use!"
       });
     }
 

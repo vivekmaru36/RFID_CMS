@@ -1,6 +1,6 @@
 ## INSTALL THE DEPENDENCIES
 ```
-npm install
+npm install or npm install react
 ```
 
 ## START THE FRONTEND
