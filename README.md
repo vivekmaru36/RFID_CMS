@@ -13,7 +13,9 @@ npm start
 ```
 node server
 ```
+# changes for node :
 
+1) added functionality for rfid to be unique for both the db 
 
 # changes :
 
