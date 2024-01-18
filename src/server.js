@@ -45,7 +45,9 @@ app.post("/otp", async (req, res) => {
   try {
 
     const decode = jwt.verify(token,JWT_SECRECT_KEY);
-    console.log(decode)
+    // console.log(decode)
+    // console.log(decode.student)
+    // console.log(decode.teacher)
     let emailExists;
 
     if (decode.student) {
