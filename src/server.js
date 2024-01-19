@@ -241,6 +241,11 @@ app.post("/tsignup", async (req, res) => {
   }
 });
 
+// Logout route
+app.post("/logout", (req, res) => {
+  // Clear the token cookie by setting an expired date in the past
+  res.clearCookie("token", { path: "/", expires: new Date(0) }).status(200).json({ success: true });
+});
 
 // Login
 app.post("/login", async (req, res) => {
@@ -292,7 +297,7 @@ app.post("/login", async (req, res) => {
     
 
     return res.status(401).json({
-      message: "Email/Password is Invalid!",
+      message: "RFID/Password is Invalid!",
     });
   } catch (err) {
 

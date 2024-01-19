@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';  // importing useffect
 import './Dashboard.css';
 import ProfilePage from './ProfilePage'; // Assuming you create a separate ProfilePage component
 import AttendancePage from './AttendancePage'; // Import the AttendancePage component
+import Cookies from 'js-cookie';
 
 // importing axios
 import axios from "axios";
@@ -42,13 +43,26 @@ const Dashboard = () => {
   };
 
   const handleItemClick = (item) => {
-    // code to redirect when logout :
+    // code to redirect when logout:
     if (item === 'Logout') {
-      navigate('/')
+      axios.post('http://localhost:5000/logout')
+        .then(response => {
+          if (response.data.success) {
+            // Clear the token from the client-side as well
+            Cookies.remove("token");
+            // Redirect to the login page after successful logout
+            navigate('/')
+          }
+        })
+        .catch(error => {
+          console.error('Error during logout:', error);
+        });
     } else {
       setSelectedItem(item);
     }
   };
+  
+  
 
   const [student, _setStudent] = useState({
     firstName: '',

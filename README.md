@@ -16,6 +16,8 @@ node server
 # changes for node :
 
 1) added functionality for rfid to be unique for both the db note : student--> numercirfid and teacher --> rfidno 
+2) Logout Done by deleting the cookie in dashboard.js/handleItemClick and server.js/logout
+3) Login done with logout deleting the token from cookies
 
 # changes :
 
