@@ -1,0 +1,166 @@
+/* write the code here for dashboard.css */
+
+/* .helo{
+    color:red;
+} */
+
+/* Dashboard.css */
+
+.dashboard-container {
+  display: grid;
+  height: 79vh;
+  /* background-color: #ffffff; White background */
+  background-color: #081334; /* black background */
+  
+}
+
+/* .nav {
+    display: none;
+  } */
+
+/* nav hiding code base in current url*/
+/* .navbar.hide-navbar {
+  display: none;
+} */
+
+.menu-button {
+  position: absolute; /* Position the menu button */
+  top: 0; /* Align to the top */
+  left: 0; /* Align to the left */
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  margin: 20px;
+}
+
+.menu-icon {
+  width: 30px;
+  height: 4px;
+  background-color: #008000; /* Green color */
+  margin: 5px 10px;
+  transition: transform 0.3s ease; /* Transition for menu icon animation */
+}
+
+.menu-icon.open:nth-child(1) {
+  transform: translateY(10px) rotate(45deg);
+}
+
+.menu-icon.open:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-icon.open:nth-child(3) {
+  transform: translateY(-10px) rotate(-45deg);
+}
+
+.dashboard-items {
+  position: absolute; /* Position the menu button */
+  top: 0; /* Align to the top */
+  left: 0; /* Align to the left */
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  margin: 50px 5px;
+}
+
+.item {
+  padding: 25px 20px;
+  margin: 9px 0;
+  cursor: pointer;
+  background-color: #ffffff; /* White background */
+  color: #008000; /* Green color */
+  font-size: 25px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.item:hover {
+  background-color: #e0f2f1; /* Light green background on hover */
+}
+
+.content-area {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  padding: 20px;
+  background-color: #e0f2f1; /* Light green background */
+  color: #008000; /* Green color */
+  border-radius: 8px;
+  box-shadow: 0px 0px 15px rgba(108, 173, 108, 0.2); /* Green shadow */
+  text-align: center;
+}
+
+
+
+.lecture-content {
+  display: flex;
+  justify-content: space-between; /* Distribute items evenly */
+  flex-wrap: initial; /* Allow items to wrap to the next line */
+}
+
+.lecture-item {
+  flex: 0 0 calc(33.33% - 60px); /* Set width for each item with space in between */
+  margin: 10px; /* Space around each item */
+  padding: 5px; /* Padding inside each item */
+  border: 1px solid #ccc; /* Border for each item */
+  border-radius: 30px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+  transition: box-shadow 0.3s ease; /* Transition effect for hover */
+}
+
+.lecture-item:hover {
+  box-shadow:-20px -6px 6px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
+}
+
+
+/* ProfilePage.css */
+
+.profile-container {
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.profile-container h2 {
+  margin-bottom: 20px;
+}
+
+.profile-field {
+  margin-bottom: 10px;
+}
+
+/* AttendancePage.css */
+
+.attendance-container {
+  padding: 20px;
+  background-color: #e9dddd;
+  border-radius: 8px;
+  box-shadow: 0px 0px 15px rgba(250, 248, 248, 0.933);
+  margin-top: 20px;
+  color: #008000;
+}
+
+.attendance-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.attendance-table th,
+.attendance-table td {
+  padding: 12px;
+  border: 2px solid #191515;
+  text-align: left;
+}
+
+.attendance-table th {
+  background-color: #57f55c;
+  color: rgb(177, 24, 24);
+}

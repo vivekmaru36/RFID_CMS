@@ -1,0 +1,169 @@
+
+
+.home-page h2{
+    position:absolute;
+    margin-top: 42%;
+    font-size:40px;
+    text-align:center;
+    background: linear-gradient(90deg, rgb(255 132 160) 0%, rgb(251 102 157) 20%, rgb(179 45 194) 95%, rgb(136, 95, 183) 100%);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.content{
+    position:absolute;
+    left:-3%;
+    margin-top: 45%;
+    margin-left:0%;
+}
+
+.content .skills-image-div{
+    overflow:hidden;
+    width:45%;
+    height:auto;
+    order:2;
+}
+
+
+
+.content .greeting-image-div{
+    position:absolute;
+    overflow:hidden;
+    width:45%;
+    height:auto;
+    order:2;
+    right:0;
+}
+
+/* CSS */
+
+.skills-text-div {
+    position: absolute;
+    z-index: 0;
+    top:0%;
+    right:0%;
+    margin-right:18%;
+    margin-top:3%;
+    color:white;
+    text-align: left;
+
+}
+
+.skills-text-div .skills-heading{
+    font-size: 50px;
+    font-weight:bolder;
+    right:0%;
+    margin-left:65%;
+    font-family:'MarkPro';
+    color:#2b2a35
+    
+}
+
+@font-face {
+    font-family: 'MarkPro';
+    src: url("./Maven-Pro-SemiBold.ttf");
+}
+
+@font-face {
+    font-family: 'Lemon';
+    src: url("./Eina04-Regular.ttf");
+}
+
+.skills-text-div .skills-text-subtitle{
+    color:#545465;
+    font-family: 'Lemon';
+    margin-left: 65%;
+    font-size:20px;
+}
+
+.Tech {
+    position: absolute;
+    margin-top: 120px;
+    left: 6%;
+    padding-top: 1%;
+    padding-left: 2%;
+    padding-right: 10%;
+    padding-bottom: 3%;
+    text-align: left;
+    border-radius: 6px;
+    /* From https://css.glass */
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 16px;
+    box-shadow: 0 4px 100px rgba(0, 0, 0, 0.1), 0 0 10px rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    width: 25%;
+    height: 40%;
+}
+
+
+
+
+.Tech h1{
+    font-size: 40px;
+    color:#2b2a35
+}
+
+.Tech p{
+    position:absolute;
+    z-index: 0;
+    margin-right: 40px;
+}
+
+
+.rfid{
+    position:absolute;
+    margin-top:530px;
+    left:40%;
+    /* padding-top: 500px; */
+}
+
+.rfid h1{
+    background: linear-gradient(90deg, rgb(255 132 160) 0%, rgb(251 102 157) 20%, rgb(179 45 194) 95%, rgb(136, 95, 183) 100%);
+    -webkit-background-clip: text;
+    color: transparent;
+    font-size:50px;
+    font-family: "MarkPro";
+    letter-spacing:3px;
+}
+
+.build-image-div{
+    position: absolute;
+    width: 50%;
+    top: 1150px;
+    left:0%;
+}
+
+.svg-design{
+    position:absolute;
+    z-index: -1;
+    width:11%;
+    top:228%;
+    left:34%;
+    
+}
+
+.rfid-Text{
+    position: absolute;
+    display: flex;
+    border-radius: 13px;
+    text-align: left;
+    background-color: white;
+    padding-left:50px;
+    padding-right: 50px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-left:860px;
+    margin-top:140px;
+    width: 30%;
+    font-family: "Lemon";
+    box-shadow: 0 4px 100px rgba(0, 0, 0, 0.1), 0 0 10px rgba(255, 255, 255, 0.2);
+
+}
+
+
+#features{
+  position: absolute;
+  top:10%;  
+}
