@@ -104,11 +104,20 @@ app.post("/signup", async (req, res) => {
   try {
 
     const alreadyExists = await studentRegister.findOne({ email });
+    const rfidExistsInStudent = await studentRegister.findOne({ numericRFID });
+    const rfidExistsInTeacher = await teacherRegister.findOne({ rfidno:numericRFID });
 
     if (alreadyExists != null) {
       return res.status(409).json({
         success: false,
         message: "Email Already In Use!"
+      });
+    }
+
+    if (rfidExistsInStudent != null || rfidExistsInTeacher != null) {
+      return res.status(409).json({
+        success: false,
+        message: "RFID Already In Use!"
       });
     }
 
