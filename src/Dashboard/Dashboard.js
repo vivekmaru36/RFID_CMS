@@ -42,6 +42,36 @@ const Dashboard = () => {
     console.log('handleMenuClick called. isMenuOpen:', newIsMenuOpen);
   };
 
+  const [userDetails, setUserDetails] = useState({
+    fname: '',
+    lname: '',
+  });
+
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/userdetails', {
+          headers: {
+            Authorization: Cookies.get('token') // Include the token in the request headers
+          }
+        });
+
+        console.log('User details response:', response.data);
+
+        if (response.data.success) {
+          setUserDetails(response.data.data);
+        } else {
+          // Handle error state if needed
+        }
+      } catch (error) {
+        console.error('Error fetching user details:', error);
+        // Handle error state if needed
+      }
+    };
+
+    fetchUserDetails();
+  }, [rfid]); // Fetch user details whenever rfid changes
+
   const handleItemClick = (item) => {
     // code to redirect when logout:
     if (item === 'Logout') {
@@ -84,51 +114,51 @@ const Dashboard = () => {
   // }
 
   const [role, setrole] = useState('');   // assigning the roles to help
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('https://localhost:44367/api/crudoperations/GetRecordByRfid', {
-          params: {
-            rfid: rfid // Pass the RFID value as a parameter
-          }
-        });
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get('https://localhost:44367/api/crudoperations/GetRecordByRfid', {
+  //         params: {
+  //           rfid: rfid // Pass the RFID value as a parameter
+  //         }
+  //       });
 
-        // Check if the response data exists and has at least one student object
-        if (response.data && response.data.data && response.data.data.length > 0) {
-          const fetchedStudent = response.data.data[0]; // Get the first student from the API response
+  //       // Check if the response data exists and has at least one student object
+  //       if (response.data && response.data.data && response.data.data.length > 0) {
+  //         const fetchedStudent = response.data.data[0]; // Get the first student from the API response
 
-          // Update the student state with the fetched student's information
-          _setStudent({
-            firstName: fetchedStudent.firstName,
-            lastName: fetchedStudent.lastName,
-            // Add other student details as needed
-          });
+  //         // Update the student state with the fetched student's information
+  //         _setStudent({
+  //           firstName: fetchedStudent.firstName,
+  //           lastName: fetchedStudent.lastName,
+  //           // Add other student details as needed
+  //         });
 
-          // update the role
-          setrole('student');
-          console.log(role)
-        }
-        else if (response.data && response.data.data2 && response.data.data2.length > 0) {
-          const fetchedStudent = response.data.data2[0]; // Get the first student from the API response
-          // Update the student state with the fetched student's information
-          _setStudent({
-            firstName: fetchedStudent.firstName,
-            lastName: fetchedStudent.lastName,
-            // Add other student details as needed
-          });
+  //         // update the role
+  //         setrole('student');
+  //         console.log(role)
+  //       }
+  //       else if (response.data && response.data.data2 && response.data.data2.length > 0) {
+  //         const fetchedStudent = response.data.data2[0]; // Get the first student from the API response
+  //         // Update the student state with the fetched student's information
+  //         _setStudent({
+  //           firstName: fetchedStudent.firstName,
+  //           lastName: fetchedStudent.lastName,
+  //           // Add other student details as needed
+  //         });
 
-          // update the role
-          setrole('teacher');
-          console.log(role)
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        // Handle error state if needed
-      }
-    };
+  //         // update the role
+  //         setrole('teacher');
+  //         console.log(role)
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //       // Handle error state if needed
+  //     }
+  //   };
 
-    fetchData();
-  }, [role], [rfid]);
+  //   fetchData();
+  // }, [role], [rfid]);
 
   // Function to log student details when the state updates
   const logStudentDetails = () => {
@@ -203,7 +233,7 @@ const Dashboard = () => {
   return (
     <div className="dashboard-container">
       <div className="greeting">
-        <h2>Hello, {student.firstName} {student.lastName}</h2>
+      <h2>Hello, {userDetails.fname} {userDetails.lname}</h2>
       </div>
       <button className="menu-button" onClick={handleMenuClick}>
         <div className={`menu-icon ${isMenuOpen ? 'open' : ''}`}></div>

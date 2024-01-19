@@ -241,6 +241,43 @@ app.post("/tsignup", async (req, res) => {
   }
 });
 
+app.get("/userdetails", async (req, res) => {
+  const token = req.headers.authorization; // Retrieve the token from the request headers
+  try {
+    if (!token) {
+      return res.status(401).json({
+        success: false,
+        message: "Authorization token not provided",
+      });
+    }
+
+    const decode = jwt.verify(token, JWT_SECRECT_KEY);
+
+    let userdetails = {
+      fname: "",
+      lname: "",
+    };
+
+    if (decode.student) {
+      userdetails = {
+        fname: decode.student.firstName,
+        lname: decode.student.lastName,
+      };
+    } else if (decode.teacher) {
+      userdetails = {
+        fname: decode.teacher.firstName,
+        lname: decode.teacher.lastName,
+      };
+    }
+
+    res.status(200).json({ success: true, data: userdetails });
+  } catch (error) {
+    console.log("Error fetching data : ", error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+});
+
+
 // Logout route
 app.post("/logout", (req, res) => {
   // Clear the token cookie by setting an expired date in the past
