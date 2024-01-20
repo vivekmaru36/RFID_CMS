@@ -69,7 +69,7 @@ const Dashboard = () => {
             email: userdata.email,
             course: userdata.course,
             currentYear: userdata.currentYear,
-            numericRfid: userdata.numericRfid,
+            numericRfid: userdata.numericRfid||userdata.rfidno,
           });
 
           // console.log(userDetails.course)
