@@ -15,8 +15,6 @@ const db = mongoose.connection;
 db.on("error", (err) => console.error(err));
 db.once("open", () => console.log("DB CONNECTED"));
 
-
-
 const app = express();
 app.use(cors());
 app.use(cookieParser())
@@ -35,6 +33,9 @@ const studentRegister = require("./models/studentRegister");
 const teacherRegister = require("./models/teacherRegister");
 
 
+const checkAuth = require("./middleware/checkAuth");
+
+
 
 const JWT_SECRECT_KEY="47d39093940795f6c54900b31345b29d3ff30bd9ac8510ea35b90feb3d25ab678bd50cc5e7d13e02ce6a1f1d8c5cd729c2fa"
 
@@ -45,9 +46,7 @@ app.post("/otp", async (req, res) => {
   try {
 
     const decode = jwt.verify(token,JWT_SECRECT_KEY);
-    // console.log(decode)
-    // console.log(decode.student)
-    // console.log(decode.teacher)
+
     let emailExists;
 
     if (decode.student) {
@@ -176,8 +175,6 @@ app.post("/tsignup", async (req, res) => {
   } = req.body;
     
   try {
-
-
     const alreadyExists = await teacherRegister.findOne({ email });
     const rfidExistsInStudent = await studentRegister.findOne({ numericRFID: rfidno });
     const rfidExistsInTeacher = await teacherRegister.findOne({ rfidno });
@@ -241,46 +238,7 @@ app.post("/tsignup", async (req, res) => {
   }
 });
 
-app.get("/userdetails", async (req, res) => {
-  const token = req.headers.authorization; // Retrieve the token from the request headers
-  try {
-    if (!token) {
-      return res.status(401).json({
-        success: false,
-        message: "Authorization token not provided",
-      });
-    }
-
-    const decode = jwt.verify(token, JWT_SECRECT_KEY);
-
-    let userdetails = {
-      fname: "",
-      lname: "",
-    };
-
-    if (decode.student) {
-      userdetails = {
-        fname: decode.student.firstName,
-        lname: decode.student.lastName,
-      };
-    } else if (decode.teacher) {
-      userdetails = {
-        fname: decode.teacher.firstName,
-        lname: decode.teacher.lastName,
-      };
-    }
-
-    res.status(200).json({ success: true, data: userdetails });
-  } catch (error) {
-    console.log("Error fetching data : ", error);
-    res.status(500).json({ success: false, message: "Internal server error" });
-  }
-});
-
-
-// Logout route
 app.post("/logout", (req, res) => {
-  // Clear the token cookie by setting an expired date in the past
   res.clearCookie("token", { path: "/", expires: new Date(0) }).status(200).json({ success: true });
 });
 
@@ -288,11 +246,8 @@ app.post("/logout", (req, res) => {
 app.post("/login", async (req, res) => {
   const { rfid, password } = req.body;
   try {
-
     const isEmailExistsSt = await studentRegister.findOne({ numericRFID:rfid });
-
     const isEmailExistsTe = await teacherRegister.findOne({ rfidno:rfid });
-
 
     if (
       isEmailExistsSt &&
@@ -331,8 +286,7 @@ app.post("/login", async (req, res) => {
         .json({ success: true,"token":token });
     }
 
-    
-
+  
     return res.status(401).json({
       message: "RFID/Password is Invalid!",
     });
@@ -346,8 +300,15 @@ app.post("/login", async (req, res) => {
   }
 });
 
-
-
-app.get("/check-auth", async(req, res) => {
-  return res.status(200).json(req.cookies.token);
+app.get('/user-details', checkAuth, async (req, res) => {
+  try {
+    if (req.student) {
+      return res.status(200).json({ success: true, data: req.student });
+    } else if (req.teacher) {
+      return res.status(200).json({ success: true, data: req.teacher });
+    }
+  } catch (error) {
+    console.error('Error fetching user details:', error);
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
+  }
 });

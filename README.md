@@ -19,6 +19,7 @@ node server
 2) Logout Done by deleting the cookie in dashboard.js/handleItemClick and server.js/logout
 3) Login done with logout deleting the token from cookies
 4) fetch done but still displays only based on token from cookie fname
+5) fetch done all fields are getting stored from tokens you can use them to display on profile from dashboard.js/userDetails
 
 # changes :
 
