@@ -194,7 +194,7 @@ const Dashboard = () => {
       <div className={`content-area ${isMenuOpen ? 'open' : ''}`}>
         {selectedItem === 'Profile' && <ProfilePage />}
         {selectedItem === 'Attendance' && <AttendancePage />} {/* Display AttendancePage when 'Attendance' is selected */}
-        {selectedItem === 'Lectures' && <Lecture />} {/* Display Lecture when 'lecture' is selected */}
+        {selectedItem === 'Lectures' && <Lecture userDetails={userDetails} />} {/* Display Lecture when 'lecture' is selected */}
       </div>
 
     </div>

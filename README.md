@@ -22,6 +22,7 @@ node server
 5) fetch done all fields are getting stored from tokens you can use them to display on profile from dashboard.js/userDetails
 6) Profile.js is done from /user-details api in server.js 
 7) added a role variable in schema so we can identify who has read and write permission based on that 
+8) also added course variable in teacher so they can match classes based on respective course
 
 # changes :
 

@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 // import './Dashboard.css';
+import Cookies from 'js-cookie';
 
-const Lecture = () => {
+// importing axios
+import axios from "axios";
+
+const Lecture = ({userDetails}) => {
+
+    console.log(userDetails)
 
     const [lectures, setLectures] = useState([
         { id: 'lec1', teacher: 'Mr. Aditya', subject: 'ML', time: '10:00 AM', venue: 'Hardware Lab' },

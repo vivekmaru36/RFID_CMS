@@ -171,7 +171,8 @@ app.post("/tsignup", async (req, res) => {
     lastName,
     email,
     rfidno,
-    password    
+    password,
+    course,    
   } = req.body;
     
   try {
@@ -209,8 +210,9 @@ app.post("/tsignup", async (req, res) => {
       email,
       rfidno,
       password: hashPassword,
+      course,
       otp: OTP,
-      isVerified: false
+      isVerified: false,
     });
 
     await teacher.save();
