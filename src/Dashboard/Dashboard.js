@@ -45,6 +45,7 @@ const Dashboard = () => {
     course: '',
     currentYear: '',
     numericRfid: '',
+    role:'',
   });
   // http://localhost:5000/userdetails
   useEffect(() => {
@@ -73,6 +74,7 @@ const Dashboard = () => {
             course: userdata.course,
             currentYear: userdata.currentYear,
             numericRfid: userdata.numericRfid||userdata.rfidno,
+            role:userdata.role
           });
 
           // console.log(userDetails.course)

@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 // importing axios
 import axios from "axios";
 
-const Lecture = ({userDetails}) => {
+const Lecture = ({ userDetails }) => {
 
     console.log(userDetails)
 
@@ -15,21 +15,63 @@ const Lecture = ({userDetails}) => {
         { id: 'lec3', teacher: 'Ms. Geeta', subject: 'BDA', time: '2:00 PM', venue: 'CS Lab' },
     ]);
 
-    return (
-        <div>
-            {/* <div>hello this is lecture</div> */}
-            <div className="lecture-content">
-                {lectures.map(lecture => (
-                    <div key={lecture.id} className="lecture-item">
-                        <h3>{lecture.subject}</h3>
-                        <p>Teacher: {lecture.teacher}</p>
-                        <p>Time: {lecture.time}</p>
-                        <p>Venue: {lecture.venue}</p>
-                    </div>
-                ))}
+    const [role, setRole] = useState(userDetails && userDetails.role);
+
+    console.log(role);
+
+    if (role === 's') {
+        return (
+            <div>
+                <div>hello this is lecture for s</div>
+                <div className="lecture-content">
+                    {lectures.map(lecture => (
+                        <div key={lecture.id} className="lecture-item">
+                            <h3>{lecture.subject}</h3>
+                            <p>Teacher: {lecture.teacher}</p>
+                            <p>Time: {lecture.time}</p>
+                            <p>Venue: {lecture.venue}</p>
+                        </div>
+                    ))}
+                </div>
             </div>
-        </div>
-    );
+        );
+
+    } else if (role === 't') {
+        return (
+            <div>
+                <div>hello this is lecture for t</div>
+                <div className="lecture-content">
+                    {lectures.map(lecture => (
+                        <div key={lecture.id} className="lecture-item">
+                            <h3>{lecture.subject}</h3>
+                            <p>Teacher: {lecture.teacher}</p>
+                            <p>Time: {lecture.time}</p>
+                            <p>Venue: {lecture.venue}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+    }
+    else {
+        return (
+            <div>
+                {/* <div>hello this is lecture</div> */}
+                <div className="lecture-content">
+                    {lectures.map(lecture => (
+                        <div key={lecture.id} className="lecture-item">
+                            <h3>{lecture.subject}</h3>
+                            <p>Teacher: {lecture.teacher}</p>
+                            <p>Time: {lecture.time}</p>
+                            <p>Venue: {lecture.venue}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+
+    }
+
 };
 
 export default Lecture;
