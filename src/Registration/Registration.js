@@ -79,6 +79,7 @@ const Registration = () => {
     const [email, setEmail] = useState('');
     const [numericRFID, setNumericRFID] = useState('');
     const [password,setPassword]=useState('')
+    const [course,setcourse]=useState('')
 
     const teacherSubmit = async (e) => {
       e.preventDefault();
@@ -89,7 +90,8 @@ const Registration = () => {
         lastName: lastName,
         email: email,
         rfidno: numericRFID,
-        password:password
+        password:password,
+        course:course,
       };
       
       try{
@@ -203,6 +205,7 @@ const Registration = () => {
                     <input type="text" placeholder='Last Name' value={lastName} onChange={(e) => setLastName(e.target.value)} required />
                     <input type="email" placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} required />
                     <input type="password" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)} required/>
+                    <input type="text" placeholder="Course" value={course} onChange={(e)=>setcourse(e.target.value)} required/>
                     <input type="number" placeholder="RFID NO" value={numericRFID} onChange={handleNumericRFIDChangeT} required/>
                     {numericRFID.length !== 10 && <p style={{textAlign:"center", color: 'red' }}>Numeric RFID must be 10 digits</p>}
                     <button type="submit" style={{marginBottom:"30px",left:"32%",border:"1px solid transparent"}}><span>{buttonText}</span></button>

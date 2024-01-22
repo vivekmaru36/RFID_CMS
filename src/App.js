@@ -19,6 +19,8 @@ import {Banner} from "./Banner/Banner"
 import Otp from "./otp/Otp"
 import PrivateRoute from "./privateRoute";
 
+import Lecture from './Dashboard/lecture'
+
 const App = () => {
   const currentPath = window.location.pathname;
 
@@ -27,7 +29,7 @@ const App = () => {
    
         <Router>
           <div>
-            {currentPath !== '/dashboard' && <Navbar />} {/* Hide navbar on dashboard */}
+            {currentPath !== '/dashboard' && currentPath !== '/lec' && <Navbar />} {/* Hide navbar on dashboard */}
             <div className="container">
               <Routes>
                 <Route path="/" element={<div><Banner /><Home /></div>} />
@@ -38,7 +40,9 @@ const App = () => {
                   <Route path='/otp' element={<Otp/>} />
                   <Route path="/dashboard" element={<Dashboard />} exact />
                   <Route path="/verified" element={<Verified />} />
-
+                  {/* lecture route */}
+                  <Route path="/lec" element={<Lecture/>}/>
+                  
                 </Route>
 
 

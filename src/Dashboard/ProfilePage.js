@@ -34,6 +34,7 @@ const ProfilePage = ({ rfid }) => {
     course: '',
     currentYear: '',
     numericRfid: '',
+    role:'',
   });
   // http://localhost:5000/userdetails
   useEffect(() => {
@@ -61,6 +62,7 @@ const ProfilePage = ({ rfid }) => {
             course: userdata.course,
             currentYear: userdata.currentYear,
             numericRfid: userdata.numericRFID||userdata.rfidno,
+            role:userdata.role,
           });
 
           // console.log(userDetails.numericRFID);
@@ -86,8 +88,9 @@ const ProfilePage = ({ rfid }) => {
     <div className="profile-container">
       <h2>Profile Information</h2>
       <div><strong>Name:</strong> {userDetails.fname}</div>
-      <div><strong>Email:</strong> {userDetails.lname}</div>
+      <div><strong>Email:</strong> {userDetails.email}</div>
       <div><strong>RFID Number:</strong> {userDetails.numericRfid}</div>
+      <div><strong>Role:</strong> {userDetails.role}</div>
       {/* You can add more profile fields here */}
     </div>
   );

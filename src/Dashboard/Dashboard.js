@@ -13,6 +13,8 @@ import { useLocation } from 'react-router-dom';
 // importing navigate to redirect to logout
 import { useNavigate } from 'react-router-dom';
 
+import Lecture from './lecture'
+
 const Dashboard = () => {
 
   // navigate initialization
@@ -55,6 +57,7 @@ const Dashboard = () => {
         });
 
         // console.log('User details response:', response.data.data);
+        // console.log('User details response:', response);
 
         if (response.data.success) {
           // setUserDetails(response.data.data);
@@ -99,7 +102,12 @@ const Dashboard = () => {
               navigate('/')
             }
           })
-      } else {
+      }
+      // else if (item === 'Lectures') {
+      //   // Redirect to the "Lectures" page
+      //   navigate('/lec'); 
+      // }
+      else {
         setSelectedItem(item);
       }
 
@@ -186,23 +194,7 @@ const Dashboard = () => {
       <div className={`content-area ${isMenuOpen ? 'open' : ''}`}>
         {selectedItem === 'Profile' && <ProfilePage />}
         {selectedItem === 'Attendance' && <AttendancePage />} {/* Display AttendancePage when 'Attendance' is selected */}
-        {selectedItem && selectedItem !== 'Profile' && selectedItem !== 'Attendance' && (
-          <div className="content">
-            {selectedItem === 'Lectures' && (
-              <div className="lecture-content">
-                {lectures.map(lecture => (
-                  <div key={lecture.id} className="lecture-item">
-                    <h3>{lecture.subject}</h3>
-                    <p>Teacher: {lecture.teacher}</p>
-                    <p>Time: {lecture.time}</p>
-                    <p>Venue: {lecture.venue}</p>
-                  </div>
-                ))}
-              </div>
-            )}
-            {`CODE HERE for ${selectedItem}`}
-          </div>
-        )}
+        {selectedItem === 'Lectures' && <Lecture />} {/* Display Lecture when 'lecture' is selected */}
       </div>
 
     </div>
