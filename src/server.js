@@ -318,13 +318,10 @@ app.get('/user-details', checkAuth, async (req, res) => {
 });
 
 app.post('/setlec', async (req, res) => {
-  const{
-    Teacher,
-    sTime,
-    eTime,
-  }=req.body
+  const { Teacher, sTime, eTime } = req.body;
+
   try {
-    const hardwared= new hardware({
+    const hardwared = new hardware({
       Teacher,
       sTime,
       eTime,
@@ -332,14 +329,11 @@ app.post('/setlec', async (req, res) => {
 
     await hardwared.save();
 
-    // not assigning tokenlec
-
     const tokenlec = jwt.sign({ hardwared }, JWT_SECRECT_KEY, {
       expiresIn: "1d",
     });
 
-    res.cookie("tokenlec", tokenlec).status(200).json({ success: true,"tokenlec":tokenlec });
-
+    res.cookie("tokenlec", tokenlec, { httpOnly: true, sameSite: "Strict", secure: true }).status(200).json({ success: true, "tokenlec": tokenlec });
   } catch (error) {
     console.error('Error updating lec details:', error);
     res.status(500).json({ success: false, message: 'Internal Server Error' });

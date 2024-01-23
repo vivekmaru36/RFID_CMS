@@ -31,7 +31,7 @@ const Lecture = ({ userDetails }) => {
             console.log(teacher);
             console.log(sTime);
             console.log(eTime);
-            // You need to replace the URL with the actual endpoint for your backend
+            
             const response = await axios.post("http://127.0.0.1:5000/setlec", {
                 Teacher: teacher,
                 sTime: new Date(sTime),
@@ -40,7 +40,7 @@ const Lecture = ({ userDetails }) => {
 
             console.log("Hardware update submitted successfully:", response.data);
 
-            // Optionally, you can reset the form after submission
+            
             setTeacher("");
             setSTime("");
             setETime("");
