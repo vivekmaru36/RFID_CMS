@@ -321,6 +321,15 @@ app.post('/setlec', async (req, res) => {
   const { Teacher, sTime, eTime } = req.body;
 
   try {
+    // Check if a document already exists
+    const existingDocument = await hardware.findOne();
+
+    if (existingDocument) {
+      // Document already exists, send an error response
+      return res.status(400).json({ success: false, message: 'A document already exists. Only one document is allowed.' });
+    }
+
+    // No existing document found, proceed to save a new one
     const hardwared = new hardware({
       Teacher,
       sTime,
