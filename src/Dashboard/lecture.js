@@ -19,6 +19,38 @@ const Lecture = ({ userDetails }) => {
 
     console.log(role);
 
+    // var for t
+    const [teacher, setTeacher] = useState("");
+    const [sTime, setSTime] = useState("");
+    const [eTime, setETime] = useState("");
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            console.log(teacher);
+            console.log(sTime);
+            console.log(eTime);
+            // You need to replace the URL with the actual endpoint for your backend
+            const response = await axios.post("http://127.0.0.1:5000/setlec", {
+                Teacher: teacher,
+                sTime: new Date(sTime),
+                eTime: new Date(eTime),
+            });
+
+            console.log("Hardware update submitted successfully:", response.data);
+
+            // Optionally, you can reset the form after submission
+            setTeacher("");
+            setSTime("");
+            setETime("");
+        } catch (error) {
+            console.error("Error submitting hardware update:", error);
+        }
+    };
+
+
+
     if (role === 's') {
         return (
             <div>
@@ -50,6 +82,40 @@ const Lecture = ({ userDetails }) => {
                         </div>
                     ))}
                 </div>
+
+                <form onSubmit={handleSubmit}>
+                    <label>
+                        Teacher:
+                        <input
+                            type="text"
+                            value={teacher}
+                            onChange={(e) => setTeacher(e.target.value)}
+                            required
+                        />
+                    </label>
+                    <br />
+                    <label>
+                        Start Time:
+                        <input
+                            type="datetime-local"
+                            value={sTime}
+                            onChange={(e) => setSTime(e.target.value)}
+                            required
+                        />
+                    </label>
+                    <br />
+                    <label>
+                        End Time:
+                        <input
+                            type="datetime-local"
+                            value={eTime}
+                            onChange={(e) => setETime(e.target.value)}
+                            required
+                        />
+                    </label>
+                    <br />
+                    <button type="submit">Submit</button>
+                </form>
             </div>
         );
     }

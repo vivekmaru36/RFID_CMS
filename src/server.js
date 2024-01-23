@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const mongoose = require("mongoose");
 const { default: axios } = require("axios");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -8,6 +7,8 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const router = express.Router();
 //const nodemailer = require("nodemailer");
+
+const mongoose = require("mongoose");
 mongoose.set("strictQuery", true);
 mongoose.connect("mongodb://0.0.0.0:27017/register");
 
@@ -31,6 +32,7 @@ const { sendOTP, sendResetMail } = require("./services/emailService");
 
 const studentRegister = require("./models/studentRegister");
 const teacherRegister = require("./models/teacherRegister");
+const hardware=require("./models/hardware");
 
 
 const checkAuth = require("./middleware/checkAuth");
@@ -311,6 +313,35 @@ app.get('/user-details', checkAuth, async (req, res) => {
     }
   } catch (error) {
     console.error('Error fetching user details:', error);
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
+  }
+});
+
+app.post('/setlec', async (req, res) => {
+  const{
+    Teacher,
+    sTime,
+    eTime,
+  }=req.body
+  try {
+    const hardwared= new hardware({
+      Teacher,
+      sTime,
+      eTime,
+    });
+
+    await hardwared.save();
+
+    // not assigning tokenlec
+
+    const tokenlec = jwt.sign({ hardwared }, JWT_SECRECT_KEY, {
+      expiresIn: "1d",
+    });
+
+    res.cookie("tokenlec", tokenlec).status(200).json({ success: true,"tokenlec":tokenlec });
+
+  } catch (error) {
+    console.error('Error updating lec details:', error);
     res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
 });
