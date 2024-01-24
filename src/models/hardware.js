@@ -21,7 +21,7 @@ const hardwareschema = new mongoose.Schema({
     },
     venue:{
         type:String,
-        default:'hardware',
+        default:'Hardware Lab',
     }
 });
 

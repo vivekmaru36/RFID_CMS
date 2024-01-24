@@ -32,22 +32,22 @@ const { sendOTP, sendResetMail } = require("./services/emailService");
 
 const studentRegister = require("./models/studentRegister");
 const teacherRegister = require("./models/teacherRegister");
-const hardware=require("./models/hardware");
+const hardware = require("./models/hardware");
 
 
 const checkAuth = require("./middleware/checkAuth");
 
 
 
-const JWT_SECRECT_KEY="47d39093940795f6c54900b31345b29d3ff30bd9ac8510ea35b90feb3d25ab678bd50cc5e7d13e02ce6a1f1d8c5cd729c2fa"
+const JWT_SECRECT_KEY = "47d39093940795f6c54900b31345b29d3ff30bd9ac8510ea35b90feb3d25ab678bd50cc5e7d13e02ce6a1f1d8c5cd729c2fa"
 
 
 app.post("/otp", async (req, res) => {
-  const { otp,token } = req.body;  // Destructure otp directly from req.body
+  const { otp, token } = req.body;  // Destructure otp directly from req.body
 
   try {
 
-    const decode = jwt.verify(token,JWT_SECRECT_KEY);
+    const decode = jwt.verify(token, JWT_SECRECT_KEY);
 
     let emailExists;
 
@@ -73,9 +73,9 @@ app.post("/otp", async (req, res) => {
       const token = jwt.sign({ student: emailExists }, JWT_SECRECT_KEY, {
         expiresIn: "1d",
       });
-      res.cookie("token", token).status(200).json({ success: true,"token":token });
+      res.cookie("token", token).status(200).json({ success: true, "token": token });
 
-    } 
+    }
     else {
       return res.status(401).json({
         message: "Invalid otp",
@@ -101,12 +101,12 @@ app.post("/signup", async (req, res) => {
     course,
     numericRFID,
   } = req.body;
-    
+
   try {
 
     const alreadyExists = await studentRegister.findOne({ email });
     const rfidExistsInStudent = await studentRegister.findOne({ numericRFID });
-    const rfidExistsInTeacher = await teacherRegister.findOne({ rfidno:numericRFID });
+    const rfidExistsInTeacher = await teacherRegister.findOne({ rfidno: numericRFID });
 
     if (alreadyExists != null) {
       return res.status(409).json({
@@ -128,8 +128,8 @@ app.post("/signup", async (req, res) => {
 
     if (emailRes.rejected.length != 0)
       return res.status(500).json({
-      message: "Something went wrong! Try Again",
-    });
+        message: "Something went wrong! Try Again",
+      });
 
     const hashPassword = await bcrypt.hash(password, 10);
 
@@ -146,7 +146,7 @@ app.post("/signup", async (req, res) => {
     });
 
     await student.save();
-  
+
     student.password = undefined;
     student.otp = undefined;
 
@@ -154,9 +154,9 @@ app.post("/signup", async (req, res) => {
       expiresIn: "1d",
     });
 
-   
 
-    res.cookie("token", token).status(200).json({ success: true,"token":token });
+
+    res.cookie("token", token).status(200).json({ success: true, "token": token });
   } catch (err) {
     console.log(err);
     return res.status(500).json({
@@ -174,9 +174,9 @@ app.post("/tsignup", async (req, res) => {
     email,
     rfidno,
     password,
-    course,    
+    course,
   } = req.body;
-    
+
   try {
     const alreadyExists = await teacherRegister.findOne({ email });
     const rfidExistsInStudent = await studentRegister.findOne({ numericRFID: rfidno });
@@ -201,8 +201,8 @@ app.post("/tsignup", async (req, res) => {
 
     if (emailRes.rejected.length != 0)
       return res.status(500).json({
-      message: "Something went wrong! Try Again",
-    });
+        message: "Something went wrong! Try Again",
+      });
 
     const hashPassword = await bcrypt.hash(password, 10);
 
@@ -218,7 +218,7 @@ app.post("/tsignup", async (req, res) => {
     });
 
     await teacher.save();
-  
+
     teacher.password = undefined;
     teacher.otp = undefined;
 
@@ -231,7 +231,7 @@ app.post("/tsignup", async (req, res) => {
       path: "/",
     };
 
-    res.cookie("token", token, options).status(200).json({ success: true,"token":token  });
+    res.cookie("token", token, options).status(200).json({ success: true, "token": token });
 
   } catch (err) {
     console.log(err);
@@ -250,14 +250,14 @@ app.post("/logout", (req, res) => {
 app.post("/login", async (req, res) => {
   const { rfid, password } = req.body;
   try {
-    const isEmailExistsSt = await studentRegister.findOne({ numericRFID:rfid });
-    const isEmailExistsTe = await teacherRegister.findOne({ rfidno:rfid });
+    const isEmailExistsSt = await studentRegister.findOne({ numericRFID: rfid });
+    const isEmailExistsTe = await teacherRegister.findOne({ rfidno: rfid });
 
     if (
       isEmailExistsSt &&
       (await bcrypt.compare(password, isEmailExistsSt.password))
     ) {
-      
+
       const token = jwt.sign({ student: isEmailExistsSt }, JWT_SECRECT_KEY, {
         expiresIn: "1d",
       });
@@ -269,14 +269,14 @@ app.post("/login", async (req, res) => {
       return res
         .status(200)
         .cookie("token", token, options)
-        .json({ success: true,"token":token });
+        .json({ success: true, "token": token });
     }
 
     if (
       isEmailExistsTe &&
       (await bcrypt.compare(password, isEmailExistsTe.password))
     ) {
-      
+
       const token = jwt.sign({ teacher: isEmailExistsTe }, JWT_SECRECT_KEY, {
         expiresIn: "1d",
       });
@@ -287,10 +287,10 @@ app.post("/login", async (req, res) => {
       return res
         .status(200)
         .cookie("token", token, options)
-        .json({ success: true,"token":token });
+        .json({ success: true, "token": token });
     }
 
-  
+
     return res.status(401).json({
       message: "RFID/Password is Invalid!",
     });
@@ -345,6 +345,25 @@ app.post('/setlec', async (req, res) => {
     res.cookie("tokenlec", tokenlec, { httpOnly: true, sameSite: "Strict", secure: true }).status(200).json({ success: true, "tokenlec": tokenlec });
   } catch (error) {
     console.error('Error updating lec details:', error);
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
+  }
+});
+
+app.get('/getlec1', async (req, res) => {
+
+  try {
+    // Check if a document already exists
+    const hardwaredetails = await hardware.findOne();
+
+    if (!hardwaredetails) {
+      // NO Document exists, send an error response
+      return res.status(404).json({ success: false, message: 'No hardware details available.' });
+    }
+
+    // Document found, send the details in the response
+    res.status(200).json({ success: true, hardwaredetails });
+  } catch (error) {
+    console.error('Error Fetching lec1 details:', error);
     res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
 });
