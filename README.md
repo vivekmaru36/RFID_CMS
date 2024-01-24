@@ -24,6 +24,7 @@ node server
 7) added a role variable in schema so we can identify who has read and write permission based on that 
 8) also added course variable in teacher so they can match classes based on respective course
 9) Added schema for hardware lab to render for teachers and store lecture time details
+10) Update Lecture component to dynamically fetch and display lecture details with sumbit only if hardware is empty
 
 # changes :
 
