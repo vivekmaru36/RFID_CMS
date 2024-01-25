@@ -83,11 +83,11 @@ const Lecture = ({ userDetails }) => {
     const timestampUTC = new Date(timestampString);
 
     console.log(timestampUTC);
-  
+
     // // Set the time zone to Indian Standard Time (IST)
     // timestampUTC.setUTCHours(timestampUTC.getUTCHours() + 5);
     // timestampUTC.setUTCMinutes(timestampUTC.getUTCMinutes() + 30);
-  
+
     // Format the date and time in 12-hour format with AM/PM
     const options = {
       weekday: 'long',
@@ -100,26 +100,25 @@ const Lecture = ({ userDetails }) => {
       hour12: true,
     };
     const istTime12HourFormatWithDate = timestampUTC.toLocaleString('en-US',);
-  
+
     return istTime12HourFormatWithDate;
   }
-  
+
+  // logic to display form only to respective teachers
+  const showForm = hardwareDetails && hardwareDetails.Teacher === userDetails.fname;
 
   if (role === 's') {
     return (
-      <div>
-        <div>hello this is lecture for s</div>
-        <div className="lecture-content">
-          {lectures.map(lecture => (
-            <div key={lecture.id} className="lecture-item">
-              <h3>{lecture.subject}</h3>
-              <p>Teacher: {lecture.teacher}</p>
-              <p>sTime: {lecture.stime}</p>
-              <p>eTime: {lecture.etime}</p>
-              <p>Venue: {lecture.venue}</p>
-            </div>
-          ))}
-        </div>
+      <div className="lecture-content">
+        {lectures.map(lecture => (
+          <div key={lecture.id} className="lecture-item">
+            <h3>{lecture.subject}</h3>
+            <p>Teacher: {lecture.teacher}</p>
+            <p>sTime: {lecture.stime ? convertToIST12HourFormatWithDate(lecture.stime) : 'No time allocated for eTime'}</p>
+            <p>eTime: {lecture.etime ? convertToIST12HourFormatWithDate(lecture.etime) : 'No time allocated for eTime'}</p>
+            <p>Venue: {lecture.venue}</p>
+          </div>
+        ))}
       </div>
     );
   } else if (role === 't') {
@@ -137,30 +136,32 @@ const Lecture = ({ userDetails }) => {
             </div>
           ))}
         </div>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Start Time:
-            <input
-              type="datetime-local"
-              value={sTime}
-              onChange={(e) => setSTime(e.target.value)}
-              required
-            />
-          </label>
-          <br />
-          <label>
-            End Time:
-            <input
-              type="datetime-local"
-              value={eTime}
-              onChange={(e) => setETime(e.target.value)}
-              required
-            />
-          </label>
-          <br />
-          <button type="submit">Submit</button>
-        </form>
-      </div>
+        {showForm && (
+          <form onSubmit={handleSubmit}>
+            <label>
+              Start Time:
+              <input
+                type="datetime-local"
+                value={sTime}
+                onChange={(e) => setSTime(e.target.value)}
+                required
+              />
+            </label>
+            <br />
+            <label>
+              End Time:
+              <input
+                type="datetime-local"
+                value={eTime}
+                onChange={(e) => setETime(e.target.value)}
+                required
+              />
+            </label>
+            <br />
+            <button type="submit">Submit</button>
+          </form>
+        )}
+      </div>  
     );
   } else {
     return (
