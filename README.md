@@ -25,6 +25,7 @@ node server
 8) also added course variable in teacher so they can match classes based on respective course
 9) Added schema for hardware lab to render for teachers and store lecture time details
 10) Update Lecture component to dynamically fetch and display lecture details with sumbit only if hardware is empty
+11) Show form for teachers only if API response is successful
 
 # changes :
 
