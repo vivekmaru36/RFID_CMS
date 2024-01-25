@@ -81,10 +81,12 @@ const Lecture = ({ userDetails }) => {
   function convertToIST12HourFormatWithDate(timestampString) {
     // Parse the input timestamp string
     const timestampUTC = new Date(timestampString);
+
+    console.log(timestampUTC);
   
-    // Set the time zone to Indian Standard Time (IST)
-    timestampUTC.setUTCHours(timestampUTC.getUTCHours() + 5);
-    timestampUTC.setUTCMinutes(timestampUTC.getUTCMinutes() + 30);
+    // // Set the time zone to Indian Standard Time (IST)
+    // timestampUTC.setUTCHours(timestampUTC.getUTCHours() + 5);
+    // timestampUTC.setUTCMinutes(timestampUTC.getUTCMinutes() + 30);
   
     // Format the date and time in 12-hour format with AM/PM
     const options = {
@@ -92,12 +94,12 @@ const Lecture = ({ userDetails }) => {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric',
-      second: 'numeric',
+      hour: 'short',
+      minute: 'short',
+      second: 'short',
       hour12: true,
     };
-    const istTime12HourFormatWithDate = timestampUTC.toLocaleString('en-US', options);
+    const istTime12HourFormatWithDate = timestampUTC.toLocaleString('en-US',);
   
     return istTime12HourFormatWithDate;
   }
@@ -168,7 +170,8 @@ const Lecture = ({ userDetails }) => {
             <div key={lecture.id} className="lecture-item">
               <h3>{lecture.subject}</h3>
               <p>Teacher: {lecture.teacher}</p>
-              <p>Time: {lecture.time}</p>
+              <p>sTime: {lecture.stime}</p>
+              <p>eTime: {lecture.etime}</p>
               <p>Venue: {lecture.venue}</p>
             </div>
           ))}
