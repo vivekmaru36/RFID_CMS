@@ -367,3 +367,26 @@ app.get('/getlec1', async (req, res) => {
     res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
 });
+
+
+// force del for respective tea
+app.delete('/deletelec', async (req, res) => {
+  const { fname } = req.body;
+
+  try {
+    // Check if the user is a teacher and present in hardware
+    const isTeacher = await hardware.findOne({ Teacher: fname });
+
+    if (isTeacher) {
+      // If the user is a teacher, delete all data from the hardware collection
+      await hardware.deleteMany({ Teacher: fname });
+
+      return res.status(200).json({ success: true, message: 'Hardware data deleted successfully.' });
+    } else {
+      return res.status(403).json({ success: false, message: 'Access forbidden. Only teachers can delete hardware data.' });
+    }
+  } catch (error) {
+    console.error('Error deleting hardware data:', error);
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
+  }
+});

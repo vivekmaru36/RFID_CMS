@@ -105,7 +105,23 @@ const Lecture = ({ userDetails }) => {
   }
 
   // logic to display form only to respective teachers
-  const showForm = hardwareDetails && hardwareDetails.Teacher === userDetails.fname;
+  // const showForm = hardwareDetails && hardwareDetails.Teacher === userDetails.fname;
+  const showForm = (hardwareDetails && hardwareDetails.Teacher === userDetails.fname) || !lectures.some(lecture => lecture.teacher === userDetails.fname && lecture.venue !== '');
+
+  // logic to force del venue allotment
+  const handleDelete = async () => {
+    try {
+      const response = await axios.delete("http://127.0.0.1:5000/deletelec", {
+        data: {
+          fname: userDetails.fname,
+        },
+      });
+
+      console.log("Lecture deleted successfully:", response.data);
+    } catch (error) {
+      console.error("Error deleting lecture:", error);
+    }
+  };
 
   if (role === 's') {
     return (
@@ -159,9 +175,10 @@ const Lecture = ({ userDetails }) => {
             </label>
             <br />
             <button type="submit">Submit</button>
+            <button type="button" onClick={handleDelete}>Delete for hardware</button>
           </form>
         )}
-      </div>  
+      </div>
     );
   } else {
     return (
