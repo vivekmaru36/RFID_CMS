@@ -390,3 +390,17 @@ app.delete('/deletelec', async (req, res) => {
     res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
 });
+
+// auto del api
+app.delete('/autodeletelec', async (req, res) => {
+  // const { etime } = req.body;
+  try {
+    // Delete all documents from the hardware collection
+    const result = await hardware.deleteMany({});
+
+    return res.status(200).json({ success: true, message: `All hardware data deleted successfully. ${result.deletedCount} documents deleted.` });
+  } catch (error) {
+    console.error('Error deleting all hardware data:', error);
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
+  }
+});

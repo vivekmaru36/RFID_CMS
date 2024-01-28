@@ -54,6 +54,15 @@ const Lecture = ({ userDetails }) => {
             sTime: hdata.sTime,
             Venue: hdata.venue,
           });
+
+          // Check if eTime has passed from the current time
+          const currentWorldTime = new Date();
+          const eTimeUTC = new Date(hdata.eTime);
+
+          if (eTimeUTC < currentWorldTime) {
+            // Call the delete API
+            handleAutoDel();
+          }
         } else {
           console.error('Error fetching hardware details:', response.data.message);
         }
@@ -122,6 +131,21 @@ const Lecture = ({ userDetails }) => {
       console.error("Error deleting lecture:", error);
     }
   };
+
+  const handleAutoDel = async () => {
+    try {
+      const response = await axios.delete("http://127.0.0.1:5000/autodeletelec", {
+        data: {
+          etime: hardwareDetails.eTime,
+        },
+      });
+  
+      console.log("Lecture deleted successfully:", response.data);
+    } catch (error) {
+      console.error("Error deleting lecture:", error);
+    }
+  };
+  
 
   if (role === 's') {
     return (

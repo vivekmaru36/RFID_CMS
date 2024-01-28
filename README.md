@@ -26,6 +26,7 @@ node server
 9) Added schema for hardware lab to render for teachers and store lecture time details
 10) Update Lecture component to dynamically fetch and display lecture details with sumbit only if hardware is empty
 11) Show form for teachers only if API response is successful
+12) lec deletes itself if etime is passed implement auto deletion of hardware data
 
 # changes :
 
