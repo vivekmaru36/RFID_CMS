@@ -1,26 +1,27 @@
 import React, { useState, useEffect } from 'react';
 
-const Hardware_First = () => {
+const Hardwarefirst = () => {
   const [rfidNumber, setRfidNumber] = useState('');
 
-  useEffect(() => {
-    // Simulate RFID card swipe event
-    const simulateRfidSwipe = () => {
-      const randomTenDigitNumber = Math.floor(1000000000 + Math.random() * 9000000000).toString();
-      setRfidNumber(randomTenDigitNumber);
-    };
+//   useEffect(() => {
+//     // Simulate RFID card swipe event
+//     const simulateRfidSwipe = () => {
+//       const randomTenDigitNumber = Math.floor(1000000000 + Math.random() * 9000000000).toString();
+//       setRfidNumber(randomTenDigitNumber);
+//     };
 
-    // Start simulating RFID card swipes
-    const intervalId = setInterval(simulateRfidSwipe, 5000); // Change this to match your RFID reader behavior
+//     // Start simulating RFID card swipes
+//     const intervalId = setInterval(simulateRfidSwipe, 5000); // Change this to match your RFID reader behavior
 
-    // Clean up the interval on component unmount
-    return () => clearInterval(intervalId);
-  }, []); // Only run this effect once on mount
+//     // Clean up the interval on component unmount
+//     return () => clearInterval(intervalId);
+//   }, []); // Only run this effect once on mount
 
   useEffect(() => {
     // Check if the RFID number is 10 digits and send it
     if (rfidNumber.length === 10) {
       sendRfidNumber(rfidNumber); // Replace with your actual function to send the number
+      setRfidNumber(''); // Reset the RFID number after sending
     }
   }, [rfidNumber]);
 
@@ -45,4 +46,4 @@ const Hardware_First = () => {
   );
 };
 
-export default Hardware_First;
+export default Hardwarefirst;

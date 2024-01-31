@@ -22,7 +22,7 @@ import PrivateRoute from "./privateRoute";
 import Lecture from './Dashboard/lecture'
 
 // importing room url for rfid for Hardware room
-import Hardware_First from './Rooms/hardware_first';
+import Hardwarefirst from './Rooms/hardware_first';
 
 const App = () => {
   const currentPath = window.location.pathname;
@@ -55,7 +55,7 @@ const App = () => {
                 <Route path="/registration" element={<Registration />} />
                 <Route path="/logout" element={<LogoutPage />} />
                 <Route path="/Register_T" element={<RegistrationT/>} />
-                <Route path="/HardwareRoom" element={<Hardware_First/>} />
+                <Route path="/HardwareRoom" element={<Hardwarefirst/>} />
                 
               </Routes>
             </div>
