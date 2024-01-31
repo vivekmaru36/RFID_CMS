@@ -27,6 +27,7 @@ node server
 10) Update Lecture component to dynamically fetch and display lecture details with sumbit only if hardware is empty
 11) Show form for teachers only if API response is successful
 12) lec deletes itself if etime is passed implement auto deletion of hardware data
+13) Implement RFID form with simulated card swipe and continuous number sending look at '/HardwareRoom'
 
 # changes :
 
