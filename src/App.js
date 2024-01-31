@@ -21,6 +21,9 @@ import PrivateRoute from "./privateRoute";
 
 import Lecture from './Dashboard/lecture'
 
+// importing room url for rfid for Hardware room
+import Hardware_First from './Rooms/hardware_first';
+
 const App = () => {
   const currentPath = window.location.pathname;
 
@@ -29,7 +32,7 @@ const App = () => {
    
         <Router>
           <div>
-            {currentPath !== '/dashboard' && currentPath !== '/lec' && <Navbar />} {/* Hide navbar on dashboard */}
+            {currentPath !== '/dashboard' && currentPath !== '/lec' && currentPath!=='/HardwareRoom' && <Navbar />} {/* Hide navbar on dashboard */}
             <div className="container">
               <Routes>
                 <Route path="/" element={<div><Banner /><Home /></div>} />
@@ -52,6 +55,7 @@ const App = () => {
                 <Route path="/registration" element={<Registration />} />
                 <Route path="/logout" element={<LogoutPage />} />
                 <Route path="/Register_T" element={<RegistrationT/>} />
+                <Route path="/HardwareRoom" element={<Hardware_First/>} />
                 
               </Routes>
             </div>
