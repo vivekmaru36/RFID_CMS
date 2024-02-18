@@ -39,6 +39,7 @@ const hardware = require("./models/hardware");
 
 const checkAuth = require("./middleware/checkAuth");
 
+const rfid_h = require("./models/rfid_h");
 
 
 const JWT_SECRECT_KEY = "47d39093940795f6c54900b31345b29d3ff30bd9ac8510ea35b90feb3d25ab678bd50cc5e7d13e02ce6a1f1d8c5cd729c2fa"
@@ -320,7 +321,7 @@ app.get('/user-details', checkAuth, async (req, res) => {
 });
 
 app.post('/setlec', async (req, res) => {
-  const { Teacher, sTime, eTime,course } = req.body;
+  const { Teacher, sTime, eTime, course } = req.body;
 
   try {
     // Check if a document already exists
@@ -404,6 +405,27 @@ app.delete('/autodeletelec', async (req, res) => {
     return res.status(200).json({ success: true, message: `All hardware data deleted successfully. ${result.deletedCount} documents deleted.` });
   } catch (error) {
     console.error('Error deleting all hardware data:', error);
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
+  }
+});
+
+
+app.post('/hrfid', async (req, res) => {
+  const { numericRFID, geoLocation, Ip } = req.body;
+
+  try {
+    // Create a new instance of the RFID model
+    const rfidData = new rfid_h({
+      numericRFID,
+      geoLocation,
+      Ip
+    });
+    
+    // Save the data to the database
+    await rfidData.save();
+    res.status(200).json({ success: true, message: 'RFID, IP, and geo-location data stored successfully.' });
+  } catch (error) {
+    console.error('Error storing RFID, IP, and geo-location data:', error);
     res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
 });

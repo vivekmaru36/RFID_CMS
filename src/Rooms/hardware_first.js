@@ -13,10 +13,29 @@ const Hardwarefirst = () => {
     }
   }, [rfidNumber, userLocation, userIP]);
 
-  const sendRfidNumberWithLocationAndIP = (number, location, ip) => {
-    // Replace this with your logic to send the RFID number, location, and IP to the server
-    console.log('Sending RFID number:', number, 'with location:', location, 'and IP:', ip);
-    // You can make an API call here to send the number, location, and IP to your server
+  const sendRfidNumberWithLocationAndIP = async (rfidNumber, userLocation, userIP) => {
+    try {
+
+      // Make an HTTP POST request to the /hrfid endpoint with the RFID number, location, and IP data
+      const response = await fetch('http://127.0.0.1:5000/hrfid', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ numericRFID: rfidNumber, geoLocation: `${userLocation?.latitude},${userLocation?.longitude}` , Ip: userIP }),
+      });
+
+      if (response.ok) {
+        console.log('RFID number sent successfully.');
+        // Optionally, you can handle success actions here
+      } else {
+        console.error('Failed to send RFID number.');
+        // Optionally, you can handle error actions here
+      }
+    } catch (error) {
+      console.error('Error sending RFID number:', error);
+      // Optionally, you can handle error actions here
+    }
   };
 
   const handleLocation = () => {
