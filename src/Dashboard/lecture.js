@@ -161,6 +161,7 @@ const Lecture = ({ userDetails }) => {
             <p>sTime: {lecture.stime ? convertToIST12HourFormatWithDate(lecture.stime) : 'No time allocated for eTime'}</p>
             <p>eTime: {lecture.etime ? convertToIST12HourFormatWithDate(lecture.etime) : 'No time allocated for eTime'}</p>
             <p>Venue: {lecture.venue}</p>
+            <p>Course: {hardwareDetails.course}</p>
           </div>
         ))}
       </div>
