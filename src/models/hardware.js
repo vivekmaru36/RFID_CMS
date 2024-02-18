@@ -22,7 +22,11 @@ const hardwareschema = new mongoose.Schema({
     venue:{
         type:String,
         default:'Hardware Lab',
-    }
+    },
+    course:{
+        type:String,
+        required:true,
+    },
 });
 
 module.exports = mongoose.model("hardware", hardwareschema);

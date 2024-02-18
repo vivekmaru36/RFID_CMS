@@ -12,6 +12,7 @@ const Lecture = ({ userDetails }) => {
   const [teacher, setTeacher] = useState("");
   const [sTime, setSTime] = useState("");
   const [eTime, setETime] = useState("");
+  const [course, setcourse] = useState(userDetails.course);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,6 +22,7 @@ const Lecture = ({ userDetails }) => {
         Teacher: userDetails.fname,
         sTime: new Date(sTime).toISOString(), // Convert to UTC before sending
         eTime: new Date(eTime).toISOString(), // Convert to UTC before sending
+        course: course, 
       });
 
       console.log("Hardware update submitted successfully:", response.data);
@@ -39,6 +41,7 @@ const Lecture = ({ userDetails }) => {
     eTime: '',
     sTime: '',
     Venue: '',
+    course:'',
   });
 
   useEffect(() => {
@@ -53,6 +56,7 @@ const Lecture = ({ userDetails }) => {
             eTime: hdata.eTime,
             sTime: hdata.sTime,
             Venue: hdata.venue,
+            course:hdata.course,
           });
 
           // Check if eTime has passed from the current time
@@ -172,6 +176,7 @@ const Lecture = ({ userDetails }) => {
             <p>sTime: {lectures[0].stime ? convertToIST12HourFormatWithDate(lectures[0].stime) : 'No time allocated for eTime'}</p>
             <p>eTime: {lectures[0].etime ? convertToIST12HourFormatWithDate(lectures[0].etime) : 'No time allocated for eTime'}</p>
             <p>Venue: {lectures[0].venue}</p>
+            <p>Course : {hardwareDetails.course}</p>
             {showForm && (
               <form onSubmit={handleSubmit}>
                 <label>
