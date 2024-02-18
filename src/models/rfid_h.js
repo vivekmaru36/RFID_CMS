@@ -15,8 +15,8 @@ const rfidSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    currentTime:{
-        type:Date,
+    currentTime: {
+        type: Date,
         default: new Date(),  // current date and time
     },
     foundInCollection: {
@@ -25,6 +25,9 @@ const rfidSchema = new mongoose.Schema({
     },
     details: {
         type: mongoose.Schema.Types.Mixed
+    },
+    hardwaredetails: {
+        type: mongoose.Schema.Types.Mixed  // Add another field for hardwaredetails
     }
 });
 

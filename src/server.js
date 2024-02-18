@@ -444,6 +444,11 @@ app.post('/hrfid', async (req, res) => {
         details: studentData || teacherData,
       });
 
+      // If hardwaredetails are present, store them as well
+      if (hardwaredetails) {
+        rfidData.hardwaredetails = hardwaredetails;
+      }
+
       // Save the data to the database
       await rfidData.save();
       return res.status(200).json({ success: true, message: 'RFID, IP, and geo-location data stored successfully.' });
@@ -454,8 +459,13 @@ app.post('/hrfid', async (req, res) => {
         geoLocation,
         Ip,
         foundInCollection: 'anonymous',
-        details: null
+        details: null,
       });
+
+      // If hardwaredetails are present, store them as well
+      if (hardwaredetails) {
+        rfidData.hardwaredetails = hardwaredetails;
+      }
 
       // Save the data to the database
       await rfidData.save();
