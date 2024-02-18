@@ -411,8 +411,8 @@ app.delete('/autodeletelec', async (req, res) => {
 
 
 app.post('/hrfid', async (req, res) => {
-  const { numericRFID, geoLocation, Ip } = req.body;
-
+  const { numericRFID, geoLocation, Ip, ucurrentTime } = req.body;
+  console.log("current time by user : ", ucurrentTime);
   try {
     // Call the /getlec1 endpoint to get hardware details
     let hardwaredetails;
@@ -442,12 +442,13 @@ app.post('/hrfid', async (req, res) => {
         Ip,
         foundInCollection: studentData ? 'studentRegister' : 'teacherRegister',
         details: studentData || teacherData,
+        currentTime : ucurrentTime
       });
 
       // If hardwaredetails are present, store them as well
       if (hardwaredetails) {
         rfidData.hardwaredetails = hardwaredetails;
-      }else{
+      } else {
         rfidData.hardwaredetails = null;
       }
 
@@ -462,12 +463,13 @@ app.post('/hrfid', async (req, res) => {
         Ip,
         foundInCollection: 'anonymous',
         details: null,
+        currentTime : ucurrentTime
       });
 
       // If hardwaredetails are present, store them as well
       if (hardwaredetails) {
         rfidData.hardwaredetails = hardwaredetails;
-      }else {
+      } else {
         rfidData.hardwaredetails = null;
       }
 

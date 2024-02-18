@@ -22,7 +22,7 @@ const Hardwarefirst = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ numericRFID: rfidNumber, geoLocation: `${userLocation?.latitude},${userLocation?.longitude}` , Ip: userIP }),
+        body: JSON.stringify({ numericRFID: rfidNumber, geoLocation: `${userLocation?.latitude},${userLocation?.longitude}` , Ip: userIP , ucurrentTime: new Date().toISOString() }),
       });
 
       if (response.ok) {
