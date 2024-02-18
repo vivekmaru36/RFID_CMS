@@ -442,14 +442,32 @@ app.post('/hrfid', async (req, res) => {
         Ip,
         foundInCollection: studentData ? 'studentRegister' : 'teacherRegister',
         details: studentData || teacherData,
-        currentTime : ucurrentTime
+        currentTime: ucurrentTime
       });
 
       // If hardwaredetails are present, store them as well
       if (hardwaredetails) {
         rfidData.hardwaredetails = hardwaredetails;
-      } else {
-        rfidData.hardwaredetails = null;
+
+        // Check if the user is present based on current time and hardware details
+        if (
+          ucurrentTime >= hardwaredetails.sTime &&
+          ucurrentTime <= hardwaredetails.eTime
+        ) {
+          // Check if the user is a student and the course matches
+          if (
+            studentData &&
+            studentData.course === hardwaredetails.course
+          ) {
+            rfidData.attendance = 'present';
+          } else if (teacherData) {
+            rfidData.attendance = 'present';
+          } else {
+            rfidData.attendance = 'absent';
+          }
+        } else {
+          rfidData.attendance = 'absent';
+        }
       }
 
       // Save the data to the database
@@ -463,14 +481,13 @@ app.post('/hrfid', async (req, res) => {
         Ip,
         foundInCollection: 'anonymous',
         details: null,
-        currentTime : ucurrentTime
+        currentTime: ucurrentTime
       });
 
       // If hardwaredetails are present, store them as well
       if (hardwaredetails) {
         rfidData.hardwaredetails = hardwaredetails;
-      } else {
-        rfidData.hardwaredetails = null;
+        rfidData.attendance = 'absent'; // Default to absent if user data not found
       }
 
       // Save the data to the database

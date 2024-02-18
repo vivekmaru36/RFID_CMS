@@ -28,6 +28,9 @@ const rfidSchema = new mongoose.Schema({
     },
     hardwaredetails: {
         type: mongoose.Schema.Types.Mixed  // Add another field for hardwaredetails
+    },
+    attendance: {
+        type: String  // Add field for attendance
     }
 });
 
