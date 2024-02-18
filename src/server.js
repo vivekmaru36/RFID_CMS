@@ -250,15 +250,15 @@ app.post("/logout", (req, res) => {
 app.post("/login", async (req, res) => {
   const { rfid, password } = req.body;
   try {
-    const isEmailExistsSt = await studentRegister.findOne({ numericRFID: rfid });
-    const isEmailExistsTe = await teacherRegister.findOne({ rfidno: rfid });
+    const isRfidExistsSt = await studentRegister.findOne({ numericRFID: rfid });
+    const isRfidExistsTe = await teacherRegister.findOne({ rfidno: rfid });
 
     if (
-      isEmailExistsSt &&
-      (await bcrypt.compare(password, isEmailExistsSt.password))
+      isRfidExistsSt &&
+      (await bcrypt.compare(password, isRfidExistsSt.password))
     ) {
 
-      const token = jwt.sign({ student: isEmailExistsSt }, JWT_SECRECT_KEY, {
+      const token = jwt.sign({ student: isRfidExistsSt }, JWT_SECRECT_KEY, {
         expiresIn: "1d",
       });
       const options = {
@@ -273,11 +273,11 @@ app.post("/login", async (req, res) => {
     }
 
     if (
-      isEmailExistsTe &&
-      (await bcrypt.compare(password, isEmailExistsTe.password))
+      isRfidExistsTe &&
+      (await bcrypt.compare(password, isRfidExistsTe.password))
     ) {
 
-      const token = jwt.sign({ teacher: isEmailExistsTe }, JWT_SECRECT_KEY, {
+      const token = jwt.sign({ teacher: isRfidExistsTe }, JWT_SECRECT_KEY, {
         expiresIn: "1d",
       });
       const options = {

@@ -28,6 +28,7 @@ node server
 11) Show form for teachers only if API response is successful
 12) lec deletes itself if etime is passed implement auto deletion of hardware data
 13) Implement RFID form with simulated card swipe and continuous number sending look at '/HardwareRoom'
+14) Implement RFID form with user location and IP address retrieval 
 
 # changes :
 

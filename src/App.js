@@ -9,8 +9,7 @@ import Navbar from './Navbar/Navbar';
 import Dashboard from './Dashboard/Dashboard';
 import LogoutPage from './Dashboard/LogoutPage';
 import Verified from './VerificationComplete/VerificationComplete';
-// imports for teacher
-import RegistrationT from './Regestration_teacher/RegestrationT';
+
 
 import './App.css';
 import './Navbar.css';
@@ -54,7 +53,7 @@ const App = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/registration" element={<Registration />} />
                 <Route path="/logout" element={<LogoutPage />} />
-                <Route path="/Register_T" element={<RegistrationT/>} />
+                
                 <Route path="/HardwareRoom" element={<Hardwarefirst/>} />
                 
               </Routes>
