@@ -10,7 +10,9 @@ const router = express.Router();
 
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", true);
-mongoose.connect("mongodb://0.0.0.0:27017/register");
+// mongoose.connect("mongodb://0.0.0.0:27017/register");
+mongoose.connect("mongodb+srv://admin:yJWaFSJ6smqbD9EQ@register.tbgugnr.mongodb.net/?retryWrites=true&w=majority");
+
 
 const db = mongoose.connection;
 db.on("error", (err) => console.error(err));
