@@ -29,6 +29,7 @@ node server
 12) lec deletes itself if etime is passed implement auto deletion of hardware data
 13) Implement RFID form with simulated card swipe and continuous number sending look at '/HardwareRoom'
 14) Implement RFID form with user location and IP address retrieval 
+15) using mongo cloud rather than local
 
 # changes :
 
