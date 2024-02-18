@@ -414,16 +414,39 @@ app.post('/hrfid', async (req, res) => {
   const { numericRFID, geoLocation, Ip } = req.body;
 
   try {
-    // Create a new instance of the RFID model
-    const rfidData = new rfid_h({
-      numericRFID,
-      geoLocation,
-      Ip
-    });
-    
-    // Save the data to the database
-    await rfidData.save();
-    res.status(200).json({ success: true, message: 'RFID, IP, and geo-location data stored successfully.' });
+    // Check if the numericRFID exists in the studentRegister collection
+    const studentData = await studentRegister.findOne({ numericRFID });
+
+    // Check if the numericRFID exists in the teacherRegister collection
+    const teacherData = await teacherRegister.findOne({ rfidno: numericRFID });
+
+    if (studentData || teacherData) {
+      // If the RFID is found, store additional details in the rfid_h collection
+      const rfidData = new rfid_h({
+        numericRFID,
+        geoLocation,
+        Ip,
+        foundInCollection: studentData ? 'studentRegister' : 'teacherRegister',
+        details: studentData || teacherData
+      });
+      
+      // Save the data to the database
+      await rfidData.save();
+      res.status(200).json({ success: true, message: 'RFID, IP, and geo-location data stored successfully.' });
+    } else {
+      // If the RFID is not found, store it as anonymous
+      const rfidData = new rfid_h({
+        numericRFID,
+        geoLocation,
+        Ip,
+        foundInCollection: 'anonymous',
+        details: null
+      });
+      
+      // Save the data to the database
+      await rfidData.save();
+      res.status(200).json({ success: true, message: 'RFID, IP, and geo-location data stored as anonymous.' });
+    }
   } catch (error) {
     console.error('Error storing RFID, IP, and geo-location data:', error);
     res.status(500).json({ success: false, message: 'Internal Server Error' });

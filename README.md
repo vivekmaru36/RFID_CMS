@@ -30,6 +30,7 @@ node server
 13) Implement RFID form with simulated card swipe and continuous number sending look at '/HardwareRoom'
 14) Implement RFID form with user location and IP address retrieval and storing them
 15) using mongo cloud rather than local
+16) Extend rfid_h schema to include 'foundInCollection' and 'details' fields for RFID search results
 
 # changes :
 
