@@ -447,6 +447,8 @@ app.post('/hrfid', async (req, res) => {
       // If hardwaredetails are present, store them as well
       if (hardwaredetails) {
         rfidData.hardwaredetails = hardwaredetails;
+      }else{
+        rfidData.hardwaredetails = null;
       }
 
       // Save the data to the database
@@ -465,6 +467,8 @@ app.post('/hrfid', async (req, res) => {
       // If hardwaredetails are present, store them as well
       if (hardwaredetails) {
         rfidData.hardwaredetails = hardwaredetails;
+      }else {
+        rfidData.hardwaredetails = null;
       }
 
       // Save the data to the database
