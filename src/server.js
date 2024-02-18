@@ -414,41 +414,57 @@ app.post('/hrfid', async (req, res) => {
   const { numericRFID, geoLocation, Ip } = req.body;
 
   try {
-    // Check if the numericRFID exists in the studentRegister collection
-    const studentData = await studentRegister.findOne({ numericRFID });
+    // Call the /getlec1 endpoint to get hardware details
+    const response = await axios.get('http://localhost:5000/getlec1');
 
-    // Check if the numericRFID exists in the teacherRegister collection
-    const teacherData = await teacherRegister.findOne({ rfidno: numericRFID });
+    // Check if the response was successful
+    if (response.status === 200) {
+      const hardwaredetails = response.data.hardwaredetails;
 
-    if (studentData || teacherData) {
-      // If the RFID is found, store additional details in the rfid_h collection
-      const rfidData = new rfid_h({
-        numericRFID,
-        geoLocation,
-        Ip,
-        foundInCollection: studentData ? 'studentRegister' : 'teacherRegister',
-        details: studentData || teacherData
-      });
-      
-      // Save the data to the database
-      await rfidData.save();
-      res.status(200).json({ success: true, message: 'RFID, IP, and geo-location data stored successfully.' });
+      // Process hardware details here
+      console.log('Hardware details:', hardwaredetails);
+
+      // Check if the numericRFID exists in the studentRegister collection
+      const studentData = await studentRegister.findOne({ numericRFID });
+
+      // Check if the numericRFID exists in the teacherRegister collection
+      const teacherData = await teacherRegister.findOne({ rfidno: numericRFID });
+
+      if (studentData || teacherData) {
+        // If the RFID is found, store additional details in the rfid_h collection
+        const rfidData = new rfid_h({
+          numericRFID,
+          geoLocation,
+          Ip,
+          foundInCollection: studentData ? 'studentRegister' : 'teacherRegister',
+          details: studentData || teacherData,
+          
+        });
+
+        // Save the data to the database
+        await rfidData.save();
+        return res.status(200).json({ success: true, message: 'RFID, IP, and geo-location data stored successfully.' });
+      } else {
+        // If the RFID is not found, store it as anonymous
+        const rfidData = new rfid_h({
+          numericRFID,
+          geoLocation,
+          Ip,
+          foundInCollection: 'anonymous',
+          details: null
+        });
+
+        // Save the data to the database
+        await rfidData.save();
+        return res.status(200).json({ success: true, message: 'RFID, IP, and geo-location data stored as anonymous.' });
+      }
     } else {
-      // If the RFID is not found, store it as anonymous
-      const rfidData = new rfid_h({
-        numericRFID,
-        geoLocation,
-        Ip,
-        foundInCollection: 'anonymous',
-        details: null
-      });
-      
-      // Save the data to the database
-      await rfidData.save();
-      res.status(200).json({ success: true, message: 'RFID, IP, and geo-location data stored as anonymous.' });
+      // Handle the case where the response status is not 200
+      console.error('Failed to fetch hardware details:', response.statusText);
+      return res.status(response.status).json({ success: false, message: 'Failed to fetch hardware details' });
     }
   } catch (error) {
     console.error('Error storing RFID, IP, and geo-location data:', error);
-    res.status(500).json({ success: false, message: 'Internal Server Error' });
+    return res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
 });
