@@ -43,7 +43,7 @@ const Lecture = ({ userDetails }) => {
     Venue: '',
     course:'',
   });
-
+  const currentWorldTime = new Date();
   useEffect(() => {
     const fetchHardwareDetails = async () => {
       try {
@@ -60,10 +60,10 @@ const Lecture = ({ userDetails }) => {
           });
 
           // Check if eTime has passed from the current time
-          const currentWorldTime = new Date();
+          
           const eTimeUTC = new Date(hdata.eTime);
 
-          if (eTimeUTC < currentWorldTime) {
+          if (currentWorldTime > eTimeUTC) {
             // Call the delete API
             handleAutoDel();
           }
