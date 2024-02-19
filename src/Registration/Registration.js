@@ -172,7 +172,11 @@ const Registration = () => {
                   <input type="text" value={formDetails.lasttName} placeholder="Last Name" onChange={(e) => onFormUpdate('lasttName', e.target.value)} />
                   <input type="text" value={formDetails.email} placeholder="Email" onChange={(e)=>onFormUpdate("email",e.target.value)}/>
                   <input type="text" value={formDetails.currentYear} placeholder="Current Year" onChange={(e)=> onFormUpdate("currentYear",e.target.value)}/>
-                  <input type="text" value={formDetails.course} placeholder="Course" onChange={(e)=> onFormUpdate("course",e.target.value)}/>
+                  <select id="course" value={formDetails.course} onChange={(e) => onFormUpdate("course", e.target.value)}>
+                  <option value="">Select Course</option>
+                  <option value="CS">Computer Science</option>
+                  <option value="BDA">Big Data Analytics</option>
+                  </select>
                   <input type="password" value={formDetails.password} placeholder="Password" onChange={(e)=> onFormUpdate("password",e.target.value)}/>
                   <input
                     type="number"
@@ -205,7 +209,11 @@ const Registration = () => {
                     <input type="text" placeholder='Last Name' value={lastName} onChange={(e) => setLastName(e.target.value)} required />
                     <input type="email" placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} required />
                     <input type="password" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)} required/>
-                    <input type="text" placeholder="Course" value={course} onChange={(e)=>setcourse(e.target.value)} required/>
+                    <select id="course" value={formDetails.course} onChange={(e) => onFormUpdate("course", e.target.value)}>
+                    <option value="">Select Course</option>
+                    <option value="CS">Computer Science</option>
+                    <option value="BDA">Big Data Analytics</option>
+                    </select>
                     <input type="number" placeholder="RFID NO" value={numericRFID} onChange={handleNumericRFIDChangeT} required/>
                     {numericRFID.length !== 10 && <p style={{textAlign:"center", color: 'red' }}>Numeric RFID must be 10 digits</p>}
                     <button type="submit" style={{marginBottom:"30px",left:"32%",border:"1px solid transparent"}}><span>{buttonText}</span></button>

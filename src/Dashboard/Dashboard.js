@@ -27,9 +27,8 @@ const Dashboard = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [lectures, setLectures] = useState([
-    { id: 'lec1', teacher: 'Mr. Aditya', subject: 'ML', time: '10:00 AM', venue: 'Hardware Lab' },
-    { id: 'lec2', teacher: 'Ms. Beena', subject: 'CSF', time: '12:00 PM', venue: '1 Law' },
-    { id: 'lec3', teacher: 'Ms. Geeta', subject: 'BDA', time: '2:00 PM', venue: 'CS Lab' },
+    { id: 'lec1', teacher: 'Mr. Aditya', subject: 'CS', time: '10:00 AM', venue: 'Hardware Lab' },
+    { id: 'lec2', teacher: 'Ms. Beena', subject: 'BDA', time: '12:00 PM', venue: '1 Law' }
   ]);
 
   const handleMenuClick = () => {

@@ -15,23 +15,9 @@ node server
 ```
 # changes for node :
 
-1) added functionality for rfid to be unique for both the db note : student--> numercirfid and teacher --> rfidno 
-2) Logout Done by deleting the cookie in dashboard.js/handleItemClick and server.js/logout
-3) Login done with logout deleting the token from cookies
-4) fetch done but still displays only based on token from cookie fname
-5) fetch done all fields are getting stored from tokens you can use them to display on profile from dashboard.js/userDetails
-6) Profile.js is done from /user-details api in server.js 
-7) added a role variable in schema so we can identify who has read and write permission based on that 
-8) also added course variable in teacher so they can match classes based on respective course
-9) Added schema for hardware lab to render for teachers and store lecture time details
-10) Update Lecture component to dynamically fetch and display lecture details with sumbit only if hardware is empty
-11) Show form for teachers only if API response is successful
-12) lec deletes itself if etime is passed implement auto deletion of hardware data
-13) Implement RFID form with simulated card swipe and continuous number sending look at '/HardwareRoom'
-14) Implement RFID form with user location and IP address retrieval and storing them
-15) using mongo cloud rather than local
-16) Extend rfid_h schema to include 'foundInCollection' and 'details' fields for RFID search results
-17) Handled attendance for everyone including anonyomous with respect to lec
+1) removd one course box from lecture page
+2) Add dropdownlist to the signup form
+
 
 # changes :
 

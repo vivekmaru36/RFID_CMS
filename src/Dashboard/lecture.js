@@ -4,8 +4,7 @@ import axios from 'axios';
 const Lecture = ({ userDetails }) => {
   const [lectures, setLectures] = useState([
     { id: 'lec1', teacher: 'Mr.Aditya', subject: 'CS', etime: '1:00 PM', stime: '2:00 PM', venue: 'Hardware Lab' },
-    { id: 'lec2', teacher: 'Ms. Beena', subject: 'CSF', etime: '1:00 PM', stime: '2:00 PM', venue: '1 Law' },
-    { id: 'lec3', teacher: 'Ms. Geeta', subject: 'BDA', etime: '1:00 PM', stime: '2:00 PM', venue: 'CS Lab' },
+    { id: 'lec2', teacher: 'Ms. Beena', subject: 'BDA', etime: '1:00 PM', stime: '2:00 PM', venue: '1 Law' }
   ]);
 
   const [role, setRole] = useState(userDetails && userDetails.role);
@@ -171,106 +170,42 @@ const Lecture = ({ userDetails }) => {
       <div>
         <div>hello this is lecture for t</div>
         <div className="lecture-content">
-          <div key={0} className="lecture-item">
-            <h3>{lectures[0].subject}</h3>
-            <p>Teacher: {lectures[0].teacher}</p>
-            <p>sTime: {lectures[0].stime ? convertToIST12HourFormatWithDate(lectures[0].stime) : 'No time allocated for eTime'}</p>
-            <p>eTime: {lectures[0].etime ? convertToIST12HourFormatWithDate(lectures[0].etime) : 'No time allocated for eTime'}</p>
-            <p>Venue: {lectures[0].venue}</p>
-            <p>Course : {hardwareDetails.course}</p>
-            {showForm && (
-              <form onSubmit={handleSubmit}>
-                <label>
-                  Start Time:
-                  <input
-                    type="datetime-local"
-                    value={sTime}
-                    onChange={(e) => setSTime(e.target.value)}
-                    required
-                  />
-                </label>
-                <br />
-                <label>
-                  End Time:
-                  <input
-                    type="datetime-local"
-                    value={eTime}
-                    onChange={(e) => setETime(e.target.value)}
-                    required
-                  />
-                </label>
-                <br />
-                <button type="submit">Submit</button>
-                <button type="button" onClick={handleDelete}>Delete for hardware</button>
-              </form>
-            )}
-          </div>
-          <div key={1} className="lecture-item">
-            <h3>{lectures[1].subject}</h3>
-            <p>Teacher: {lectures[1].teacher}</p>
-            <p>sTime: {lectures[1].stime ? convertToIST12HourFormatWithDate(lectures[1].stime) : 'No time allocated for eTime'}</p>
-            <p>eTime: {lectures[1].etime ? convertToIST12HourFormatWithDate(lectures[1].etime) : 'No time allocated for eTime'}</p>
-            <p>Venue: {lectures[1].venue}</p>
-            {showForm && (
-              <form onSubmit={handleSubmit}>
-                <label>
-                  Start Time:
-                  <input
-                    type="datetime-local"
-                    value={sTime}
-                    onChange={(e) => setSTime(e.target.value)}
-                    required
-                  />
-                </label>
-                <br />
-                <label>
-                  End Time:
-                  <input
-                    type="datetime-local"
-                    value={eTime}
-                    onChange={(e) => setETime(e.target.value)}
-                    required
-                  />
-                </label>
-                <br />
-                <button type="submit">Submit</button>
-                <button type="button" onClick={handleDelete}>Delete for hardware</button>
-              </form>
-            )}
-          </div>
-          <div key={2} className="lecture-item">
-            <h3>{lectures[2].subject}</h3>
-            <p>Teacher: {lectures[2].teacher}</p>
-            <p>sTime: {lectures[2].stime ? convertToIST12HourFormatWithDate(lectures[2].stime) : 'No time allocated for eTime'}</p>
-            <p>eTime: {lectures[2].etime ? convertToIST12HourFormatWithDate(lectures[2].etime) : 'No time allocated for eTime'}</p>
-            <p>Venue: {lectures[2].venue}</p>
-            {showForm && (
-              <form onSubmit={handleSubmit}>
-                <label>
-                  Start Time:
-                  <input
-                    type="datetime-local"
-                    value={sTime}
-                    onChange={(e) => setSTime(e.target.value)}
-                    required
-                  />
-                </label>
-                <br />
-                <label>
-                  End Time:
-                  <input
-                    type="datetime-local"
-                    value={eTime}
-                    onChange={(e) => setETime(e.target.value)}
-                    required
-                  />
-                </label>
-                <br />
-                <button type="submit">Submit</button>
-                <button type="button" onClick={handleDelete}>Delete for hardware</button>
-              </form>
-            )}
-          </div>
+          {lectures.slice(0, 2).map((lecture, index) => (
+            <div key={index} className="lecture-item">
+              <h3>{lecture.subject}</h3>
+              <p>Teacher: {lecture.teacher}</p>
+              <p>sTime: {lecture.stime ? convertToIST12HourFormatWithDate(lecture.stime) : 'No time allocated for eTime'}</p>
+              <p>eTime: {lecture.etime ? convertToIST12HourFormatWithDate(lecture.etime) : 'No time allocated for eTime'}</p>
+              <p>Venue: {lecture.venue}</p>
+              <p>Course: {hardwareDetails.course}</p>
+              {showForm && (
+                <form onSubmit={handleSubmit}>
+                  <label>
+                    Start Time:
+                    <input
+                      type="datetime-local"
+                      value={sTime}
+                      onChange={(e) => setSTime(e.target.value)}
+                      required
+                    />
+                  </label>
+                  <br />
+                  <label>
+                    End Time:
+                    <input
+                      type="datetime-local"
+                      value={eTime}
+                      onChange={(e) => setETime(e.target.value)}
+                      required
+                    />
+                  </label>
+                  <br />
+                  <button type="submit">Submit</button>
+                  <button type="button" onClick={handleDelete}>Delete for hardware</button>
+                </form>
+              )}
+            </div>
+          ))}
         </div>
       </div>
     );
