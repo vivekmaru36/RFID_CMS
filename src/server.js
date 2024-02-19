@@ -426,7 +426,12 @@ app.post('/hrfid', async (req, res) => {
       }
     } catch (error) {
       console.error('Error fetching hardware details:', error.message);
+      // Handle the case where hardwaredetails are not fetched
+      hardwaredetails = null; // Set hardwaredetails to null to indicate it's not available
     }
+
+    // Check if the RFID already exists in rfid_h collection
+    const existingPerson = await rfid_h.findOne({ numericRFID });
 
     // Check if the numericRFID exists in the studentRegister collection
     const studentData = await studentRegister.findOne({ numericRFID });
@@ -434,7 +439,34 @@ app.post('/hrfid', async (req, res) => {
     // Check if the numericRFID exists in the teacherRegister collection
     const teacherData = await teacherRegister.findOne({ rfidno: numericRFID });
 
-    if (studentData || teacherData) {
+    if (existingPerson && hardwaredetails != null) {
+      // If the RFID already exists, update the attendance_count if course matches
+      if (
+        existingPerson.details &&
+        existingPerson.details.course === hardwaredetails.course &&
+        ucurrentTime >= hardwaredetails.sTime && ucurrentTime <= hardwaredetails.eTime
+      ) {
+        existingPerson.attendance_count += 1;
+        await existingPerson.save();
+        return res.status(200).json({ success: true, message: 'RFID updated successfully.' });
+      } else {
+        const rfidData = new rfid_h({
+          numericRFID,
+          geoLocation,
+          Ip,
+          foundInCollection: studentData ? 'studentRegister' : 'teacherRegister',
+          details: studentData || teacherData || null,
+          currentTime: ucurrentTime,
+        });
+        // If hardwaredetails are present, store them as well
+        if (hardwaredetails) {
+          rfidData.hardwaredetails = hardwaredetails;
+        }
+        // Save the data to the database
+        await rfidData.save();
+        return res.status(200).json({ success: true, message: 'RFID, IP, and geo-location data stored successfully.' });
+      }
+    } else if (studentData || teacherData) {
       // If the RFID is found, store additional details in the rfid_h collection
       const rfidData = new rfid_h({
         numericRFID,
@@ -442,7 +474,7 @@ app.post('/hrfid', async (req, res) => {
         Ip,
         foundInCollection: studentData ? 'studentRegister' : 'teacherRegister',
         details: studentData || teacherData,
-        currentTime: ucurrentTime
+        currentTime: ucurrentTime,
       });
 
       // If hardwaredetails are present, store them as well
@@ -451,28 +483,37 @@ app.post('/hrfid', async (req, res) => {
 
         // Check if the user is present based on current time and hardware details
         if (
-          ucurrentTime >= hardwaredetails.sTime &&
-          ucurrentTime <= hardwaredetails.eTime
+          ucurrentTime >= hardwaredetails.sTime && ucurrentTime <= hardwaredetails.eTime &&
+          studentData &&
+          studentData.course === hardwaredetails.course ||
+          teacherData &&
+          teacherData.course === hardwaredetails.course
         ) {
           // Check if the user is a student and the course matches
-          if (
-            studentData &&
-            studentData.course === hardwaredetails.course
-          ) {
-            rfidData.attendance = 'present';
-          } else if (teacherData) {
-            rfidData.attendance = 'present';
-          } else {
-            rfidData.attendance = 'absent';
-          }
+          rfidData.attendance = 'present';
+          rfidData.attendance_count = 1 // Start attendance count at 1 for new documents
+          await rfidData.save();
+          return res.status(200).json({ success: true, message: 'RFID, IP, and geo-location data stored successfully. attendance marked' });
+        } else if (
+          studentData &&
+          studentData.course !== hardwaredetails.course ||
+          teacherData &&
+          teacherData.course !== hardwaredetails.course
+        ) {
+          rfidData.attendance = null;
+          rfidData.attendance_count = 0 // the course does not match for the student
+          await rfidData.save();
+          return res.status(200).json({ success: true, message: 'RFID, IP, and geo-location data stored successfully. no course match' });
         } else {
           rfidData.attendance = 'absent';
+          await rfidData.save();
+          return res.status(200).json({ success: true, message: 'RFID, IP, and geo-location data stored successfully. time limit out of bounds' });
         }
+      } else {
+        rfidData.hardwaredetails = null;
+        await rfidData.save();
+        return res.status(200).json({ success: true, message: 'RFID, IP, and geo-location data stored as anonymous. nothing in hardware' })
       }
-
-      // Save the data to the database
-      await rfidData.save();
-      return res.status(200).json({ success: true, message: 'RFID, IP, and geo-location data stored successfully.' });
     } else {
       // If the RFID is not found, store it as anonymous
       const rfidData = new rfid_h({
@@ -487,9 +528,7 @@ app.post('/hrfid', async (req, res) => {
       // If hardwaredetails are present, store them as well
       if (hardwaredetails) {
         rfidData.hardwaredetails = hardwaredetails;
-        rfidData.attendance = 'absent'; // Default to absent if user data not found
       }
-
       // Save the data to the database
       await rfidData.save();
       return res.status(200).json({ success: true, message: 'RFID, IP, and geo-location data stored as anonymous.' });

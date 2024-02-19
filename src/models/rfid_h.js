@@ -31,6 +31,9 @@ const rfidSchema = new mongoose.Schema({
     },
     attendance: {
         type: String  // Add field for attendance
+    },
+    attendance_count:{
+        type: Number
     }
 });
 
