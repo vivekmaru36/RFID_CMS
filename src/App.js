@@ -9,8 +9,7 @@ import Navbar from './Navbar/Navbar';
 import Dashboard from './Dashboard/Dashboard';
 import LogoutPage from './Dashboard/LogoutPage';
 import Verified from './VerificationComplete/VerificationComplete';
-// imports for teacher
-import RegistrationT from './Regestration_teacher/RegestrationT';
+
 
 import './App.css';
 import './Navbar.css';
@@ -18,6 +17,11 @@ import './Dashboard/Dashboard.css';
 import {Banner} from "./Banner/Banner"
 import Otp from "./otp/Otp"
 import PrivateRoute from "./privateRoute";
+
+import Lecture from './Dashboard/lecture'
+
+// importing room url for rfid for Hardware room
+import Hardwarefirst from './Rooms/hardware_first';
 
 const App = () => {
   const currentPath = window.location.pathname;
@@ -27,7 +31,7 @@ const App = () => {
    
         <Router>
           <div>
-            {currentPath !== '/dashboard' && <Navbar />} {/* Hide navbar on dashboard */}
+            {currentPath !== '/dashboard' && currentPath !== '/lec' && currentPath!=='/HardwareRoom' && <Navbar />} {/* Hide navbar on dashboard */}
             <div className="container">
               <Routes>
                 <Route path="/" element={<div><Banner /><Home /></div>} />
@@ -38,7 +42,9 @@ const App = () => {
                   <Route path='/otp' element={<Otp/>} />
                   <Route path="/dashboard" element={<Dashboard />} exact />
                   <Route path="/verified" element={<Verified />} />
-
+                  {/* lecture route */}
+                  <Route path="/lec" element={<Lecture/>}/>
+                  
                 </Route>
 
 
@@ -47,7 +53,8 @@ const App = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/registration" element={<Registration />} />
                 <Route path="/logout" element={<LogoutPage />} />
-                <Route path="/Register_T" element={<RegistrationT/>} />
+                
+                <Route path="/HardwareRoom" element={<Hardwarefirst/>} />
                 
               </Routes>
             </div>

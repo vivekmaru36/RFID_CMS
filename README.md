@@ -1,6 +1,6 @@
 ## INSTALL THE DEPENDENCIES
 ```
-npm install
+npm install or npm install react
 ```
 
 ## START THE FRONTEND
@@ -13,6 +13,10 @@ npm start
 ```
 node server
 ```
+# changes for node :
+
+1) removd one course box from lecture page
+2) Add dropdownlist to the signup form
 
 
 # changes :

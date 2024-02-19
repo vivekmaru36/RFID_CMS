@@ -21,7 +21,7 @@ const Navbar = () => {
   return (
     <nav>
       <Link to="/" className="link">
-        <div className="logo">LOGO</div>
+        <div className="logo">RFID_CMS</div>
         
       </Link>
       <div className="menu-items">
@@ -37,7 +37,7 @@ const Navbar = () => {
         
         <div className="navbar-text">
             <button className="vvd sign-up" onClick={singupClick}><span>Sign up</span></button>
-            <button className="vvd sign-in" onClick={singInClick}><span>Sign in</span></button>
+            <button className="vvd sign-in" onClick={singInClick}><span>Login</span></button>
         </div>
 
       </div>

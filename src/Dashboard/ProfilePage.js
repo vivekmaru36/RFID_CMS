@@ -1,38 +1,96 @@
 import React, { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
+
+// importing axios
+import axios from "axios";
 
 const ProfilePage = ({ rfid }) => {
-  const [profileData, setProfileData] = useState(null);
+  // const [profileData, setProfileData] = useState(null);
 
+  // useEffect(() => {
+  //   // Fetch user profile data based on RFID from your backend
+  //   const fetchProfileData = async () => {
+  //     try {
+  //       const response = await fetch(`YOUR_BACKEND_API_ENDPOINT/${ rfid}`);
+  //       if (response.ok) {
+  //         const data = await response.json();
+  //         setProfileData(data);
+  //       } else {
+  //         console.error('Failed to fetch profile data');
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching profile data:', error);
+  //     }
+  //   };
+
+  //   // Call the function to fetch data when the component mounts
+  //   fetchProfileData();
+  // }, [rfid]);
+
+  const [userDetails, setUserDetails] = useState({
+    fname: '',
+    lname: '',
+    email: '',
+    course: '',
+    currentYear: '',
+    numericRfid: '',
+    role:'',
+  });
+  // http://localhost:5000/userdetails
   useEffect(() => {
-    // Fetch user profile data based on RFID from your backend
-    const fetchProfileData = async () => {
+    const fetchUserDetails = async () => {
       try {
-        const response = await fetch(`YOUR_BACKEND_API_ENDPOINT/${ rfid}`);
-        if (response.ok) {
-          const data = await response.json();
-          setProfileData(data);
+        const response = await axios.get('http://localhost:5000/user-details', {
+          headers: {
+            Authorization: Cookies.get('token') // Include the token in the request headers
+          }
+        });
+
+        // console.log('User details response:', response.data.data);
+
+        if (response.data.success) {
+          // setUserDetails(response.data.data);
+          const userdata = response.data.data;
+
+          console.log(userdata)
+
+          // updating the userdetails
+          setUserDetails({
+            fname: userdata.firstName,
+            lname: userdata.lastName || userdata.lasttName,
+            email: userdata.email,
+            course: userdata.course,
+            currentYear: userdata.currentYear,
+            numericRfid: userdata.numericRFID||userdata.rfidno,
+            role:userdata.role,
+          });
+
+          // console.log(userDetails.numericRFID);
+
         } else {
-          console.error('Failed to fetch profile data');
+          // Handle error state if needed
         }
       } catch (error) {
-        console.error('Error fetching profile data:', error);
+        console.error('Error fetching user details:', error);
+        // Handle error state if needed
       }
     };
 
-    // Call the function to fetch data when the component mounts
-    fetchProfileData();
-  }, [rfid]);
+    fetchUserDetails();
+  }, []); // Fetch user details whenever relods
 
-  if (!profileData) {
-    return <p>Loading...</p>; // You can show a loading indicator while data is being fetched
-  }
+
+  // if (!profileData) {
+  //   return <p>Loading...</p>; // You can show a loading indicator while data is being fetched
+  // }
 
   return (
     <div className="profile-container">
       <h2>Profile Information</h2>
-      <div><strong>Name:</strong> {profileData.name}</div>
-      <div><strong>Email:</strong> {profileData.email}</div>
-      <div><strong>RFID Number:</strong> {profileData.rfid}</div>
+      <div><strong>Name:</strong> {userDetails.fname}</div>
+      <div><strong>Email:</strong> {userDetails.email}</div>
+      <div><strong>RFID Number:</strong> {userDetails.numericRfid}</div>
+      <div><strong>Role:</strong> {userDetails.role}</div>
       {/* You can add more profile fields here */}
     </div>
   );

@@ -12,7 +12,8 @@ const Login = () => {
   const [rfid, setRFID] = useState('');
   const [password, setPassword] = useState('');
 
-  const sendLogin = async () => {
+  const sendLogin = async (e) => {
+    e.preventDefault();
     try {
       let response = await fetch("http://127.0.0.1:5000/login", {
         method: "POST",
