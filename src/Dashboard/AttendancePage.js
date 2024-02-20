@@ -98,7 +98,7 @@ const AttendancePage = () => {
         <thead>
           <tr>
             <th>Date</th>
-            <th>Subject</th>
+            <th>Classromm</th>
             <th>Teacher</th>
             <th>Status</th>
             <th>User Course</th>
