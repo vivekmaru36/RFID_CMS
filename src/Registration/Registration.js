@@ -79,7 +79,7 @@ const Registration = () => {
     const [email, setEmail] = useState('');
     const [numericRFID, setNumericRFID] = useState('');
     const [password,setPassword]=useState('')
-    const [course,setcourse]=useState('')
+    const [course, setCourse]=useState('')
 
     const teacherSubmit = async (e) => {
       e.preventDefault();
@@ -209,17 +209,17 @@ const Registration = () => {
                     <input type="text" placeholder='Last Name' value={lastName} onChange={(e) => setLastName(e.target.value)} required />
                     <input type="email" placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} required />
                     <input type="password" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)} required/>
-                    <select id="course" value={formDetails.course} onChange={(e) => onFormUpdate("course", e.target.value)}>
-                    <option value="">Select Course</option>
-                    <option value="CS">Computer Science</option>
-                    <option value="BDA">Big Data Analytics</option>
+                    <select id="course" value={course} onChange={(e) => setCourse(e.target.value)}>
+                      <option value="">Select Course</option>
+                      <option value="CS">Computer Science</option>
+                      <option value="BDA">Big Data Analytics</option>
                     </select>
                     <input type="number" placeholder="RFID NO" value={numericRFID} onChange={handleNumericRFIDChangeT} required/>
                     {numericRFID.length !== 10 && <p style={{textAlign:"center", color: 'red' }}>Numeric RFID must be 10 digits</p>}
                     <button type="submit" style={{marginBottom:"30px",left:"32%",border:"1px solid transparent"}}><span>{buttonText}</span></button>
                     {
                     status.message &&
-                      <p style={{textAlign:"center"}}className={status.success === false ? "danger" : "success"}>{status.message}</p>
+                      <p style={{textAlign:"center"}}className={status.success === false ? "danger" : "success"}>{status.message.message}</p>
                     }
                   </form>
               </div>
