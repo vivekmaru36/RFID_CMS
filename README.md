@@ -32,6 +32,7 @@ node server
 15) using mongo cloud rather than local
 16) Extend rfid_h schema to include 'foundInCollection' and 'details' fields for RFID search results
 17) Handled attendance for everyone including anonyomous with respect to lec
+18) Removed one lec room from deppali branch
 
 # changes :
 

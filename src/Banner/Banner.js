@@ -27,10 +27,10 @@ export const Banner = () => {
                         <Typewriter
                             options={{
                             strings: [
-                            "Bhoomika Mamidi",
-                            "Deepali",
-                            "Vivek Maru",
-                            "Suraj"
+                            "09-Bhoomika Mamidi",
+                            "16-Deepali",
+                            "21-Vivek Maru",
+                            "48-Suraj"
                             ],
                             autoStart: true,
                             loop: true,
