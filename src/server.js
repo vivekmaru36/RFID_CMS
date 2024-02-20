@@ -538,3 +538,18 @@ app.post('/hrfid', async (req, res) => {
     return res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
 });
+
+
+app.get('/AttendanceRecords', async (req, res) => {
+  try {
+    const { numericRFID } = req.query; // Access query parameters instead of params
+    console.log('Server rfid : ',numericRFID);
+    // Fetch attendance records for the given numericRFID, excluding the password field
+    const attendanceRecords = await rfid_h.find({ numericRFID }).select('-details.password');
+    console.log(attendanceRecords)
+    res.status(200).json({ success: true, attendanceRecords });
+  } catch (error) {
+    console.error('Error fetching attendance records:', error);
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
+  }
+});
