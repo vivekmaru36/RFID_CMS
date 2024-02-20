@@ -1,5 +1,3 @@
-// Attendace page
-
 import React, { useState, useEffect } from 'react';
 import './Dashboard.css';
 import axios from 'axios';
@@ -11,8 +9,8 @@ const AttendancePage = () => {
   useEffect(() => {
     // Fake data for demonstration
     const fakeAttendanceData = [
-      { id: 1, date: '2023-01-01', subject: 'Math', teacher: 'Mr. Smith', status: 'Present' },
-      { id: 2, date: '2023-01-02', subject: 'Science', teacher: 'Ms. Johnson', status: 'Absent' },
+      { id: 1, date: '2023-01-01', subject: 'Math', teacher: 'Mr. Smith', status: 'Present', usercourse: 'Bcom', leccourse: 'cs' },
+      { id: 2, date: '2023-01-02', subject: 'Science', teacher: 'Ms. Johnson', status: 'Absent', usercourse: 'Bcom', leccourse: 'cs' },
       // Add more fake data as needed
     ];
 
@@ -28,7 +26,7 @@ const AttendancePage = () => {
     numericrfid: '',
     role: '',
   });
-  // http://localhost:5000/userdetails
+
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
@@ -76,6 +74,8 @@ const AttendancePage = () => {
               subject: record.hardwaredetails.venue, // Assuming venue represents the subject
               teacher: record.hardwaredetails.Teacher,
               status: record.attendance ? 'Present' : 'Absent', // Assuming attendance indicates presence
+              usercourse: record.details.course, // Adding user's course
+              leccourse: record.hardwaredetails.course, // Adding lecture's course
             }));
 
             setAttendanceRecords(formattedAttendanceRecords);
@@ -91,7 +91,6 @@ const AttendancePage = () => {
     }
   }, [userDetailsd.numericrfid]);
 
-
   return (
     <div className="attendance-container">
       <h2>Attendance Records</h2>
@@ -102,6 +101,8 @@ const AttendancePage = () => {
             <th>Subject</th>
             <th>Teacher</th>
             <th>Status</th>
+            <th>User Course</th>
+            <th>Lecture Course</th>
           </tr>
         </thead>
         <tbody>
@@ -111,6 +112,8 @@ const AttendancePage = () => {
               <td>{record.subject}</td>
               <td>{record.teacher}</td>
               <td>{record.status}</td>
+              <td>{record.usercourse}</td>
+              <td>{record.leccourse}</td>
             </tr>
           ))}
         </tbody>
