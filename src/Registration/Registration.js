@@ -176,6 +176,10 @@ const Registration = () => {
                   <option value="">Select Course</option>
                   <option value="CS">Computer Science</option>
                   <option value="BDA">Big Data Analytics</option>
+                  <option value="WSN">Wireless Sensor Networks and Mobile Communication</option>
+                  <option value="CC">Cloud Computing</option>
+                  <option value="ML">Machine Learning</option>
+                  <option value="CSF">Cyber Security and Forensics</option>
                   </select>
                   <input type="password" value={formDetails.password} placeholder="Password" onChange={(e)=> onFormUpdate("password",e.target.value)}/>
                   <input
@@ -213,6 +217,10 @@ const Registration = () => {
                       <option value="">Select Course</option>
                       <option value="CS">Computer Science</option>
                       <option value="BDA">Big Data Analytics</option>
+                      <option value="WSN">Wireless Sensor Networks and Mobile Communication</option>
+                      <option value="CC">Cloud Computing</option>
+                      <option value="ML">Machine Learning</option>
+                      <option value="CSF">Cyber Security and Forensics</option>
                     </select>
                     <input type="number" placeholder="RFID NO" value={numericRFID} onChange={handleNumericRFIDChangeT} required/>
                     {numericRFID.length !== 10 && <p style={{textAlign:"center", color: 'red' }}>Numeric RFID must be 10 digits</p>}
