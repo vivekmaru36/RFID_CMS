@@ -7,15 +7,15 @@ import Cookies from 'js-cookie';
 import "react-datepicker/dist/react-datepicker.css";
 import { addDays, setHours, setMinutes } from 'date-fns';
 
-const Lecture = ({ userDetails,userinfo }) => {
+const Lecture = ({ userDetails, userinfo }) => {
   const [lectures, setLectures] = useState([
     { id: 'lec1', teacher: 'Mr.Aditya', subject: 'CS', etime: '1:00 PM', stime: '2:00 PM', venue: 'Hardware Lab' },
     { id: 'lec2', teacher: 'Ms. Beena', subject: 'BDA', etime: '1:00 PM', stime: '2:00 PM', venue: '1 Law' }
   ]);
 
   // console.log("This is : ",props);
-  console.log("This is userinfo from lec : ",userinfo);
- 
+  console.log("This is userinfo from lec : ", userinfo);
+
 
   const [role, setRole] = useState(userDetails && userDetails.role);
   const [teacher, setTeacher] = useState("");
@@ -29,11 +29,11 @@ const Lecture = ({ userDetails,userinfo }) => {
     try {
       const response = await axios.post("http://127.0.0.1:5000/setlec", {
         Teacher: userDetails.fname,
-        Lecdate: new Date(startDate).toISOString(), 
-        sTime: new Date(starttime).toISOString(), 
-        eTime: new Date(endtime).toISOString(), 
+        Lecdate: new Date(startDate).toISOString(),
+        sTime: new Date(starttime).toISOString(),
+        eTime: new Date(endtime).toISOString(),
         course: course,
-        subject:Subject,
+        subject: Subject,
         rfidno: userinfo.rfidno || userinfo.numericRfid,
       });
 
@@ -238,7 +238,7 @@ const Lecture = ({ userDetails,userinfo }) => {
                     Give Subject : <input type="text" placeholder='Subject' value={Subject} onChange={(e) => setSubject(e.target.value)} required />
                   </p>
                   <p>
-                    <button type='submit'>Submit</button>
+                    <button type='submit'>Submit</button> <button type='button' onClick={handleDelete}>Delete</button>
                   </p>
                 </form>
               )}
