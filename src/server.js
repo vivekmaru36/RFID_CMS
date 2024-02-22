@@ -97,7 +97,7 @@ app.post("/otp", async (req, res) => {
 app.post("/signup", async (req, res) => {
   const {
     firstName,
-    lasttName,
+    // lasttName,
     email,
     currentYear,
     password,
@@ -138,7 +138,7 @@ app.post("/signup", async (req, res) => {
 
     const student = new studentRegister({
       firstName,
-      lasttName,
+      // lasttName,
       email,
       currentYear,
       course,
@@ -173,7 +173,7 @@ app.post("/signup", async (req, res) => {
 app.post("/tsignup", async (req, res) => {
   const {
     firstName,
-    lastName,
+    // lastName,
     email,
     rfidno,
     password,
@@ -211,7 +211,7 @@ app.post("/tsignup", async (req, res) => {
 
     const teacher = new teacherRegister({
       firstName,
-      lastName,
+      // lastName,
       email,
       rfidno,
       password: hashPassword,
