@@ -24,10 +24,11 @@ const Lecture = ({ userDetails }) => {
     try {
       const response = await axios.post("http://127.0.0.1:5000/setlec", {
         Teacher: userDetails.fname,
-        sTime: new Date().toISOString(), // Convert to UTC before sending
-        eTime: new Date(eTime).toISOString(), // Convert to UTC before sending
+        Lecdate: new Date(startDate).toISOString(), 
+        sTime: new Date(starttime).toISOString(), 
+        eTime: new Date(endtime).toISOString(), 
         course: course,
-        subject:Subject
+        subject:Subject,
       });
 
       console.log("Hardware update submitted successfully:", response.data);

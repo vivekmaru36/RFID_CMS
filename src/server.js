@@ -321,7 +321,7 @@ app.get('/user-details', checkAuth, async (req, res) => {
 });
 
 app.post('/setlec', async (req, res) => {
-  const { Teacher, sTime, eTime, course,subject } = req.body;
+  const { Teacher, sTime, eTime, course,subject,Lecdate } = req.body;
 
   try {
     // Check if a document already exists
@@ -338,7 +338,8 @@ app.post('/setlec', async (req, res) => {
       sTime,
       eTime,
       course,
-      subject
+      subject,
+      Lecdate
     });
 
     await hardwared.save();
