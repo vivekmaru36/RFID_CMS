@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import DatePicker from "react-datepicker";
+import Cookies from 'js-cookie';
 
 import "react-datepicker/dist/react-datepicker.css";
 import { addDays, setHours, setMinutes } from 'date-fns';
@@ -36,6 +37,7 @@ const Lecture = ({ userDetails }) => {
       setTeacher("");
       setSTime("");
       setETime("");
+      Cookies.set("tokenlec1", response.data.tokenlec1);
     } catch (error) {
       console.error("Error submitting hardware update:", error);
     }
