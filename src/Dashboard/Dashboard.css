@@ -107,7 +107,7 @@
   flex: 0 0 calc(60.33% - 90px); /* Set width for each item with space in between */
   margin: 10px; /* Space around each item */
   padding: 5px; /* Padding inside each item */
-  border: 1px solid #ccc; /* Border for each item */
+  border: 5px solid #ccc; /* Border for each item */
   border-radius: 30px; /* Rounded corners */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for depth */
   transition: box-shadow 0.3s ease; /* Transition effect for hover */

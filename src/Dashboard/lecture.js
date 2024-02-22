@@ -193,6 +193,7 @@ const Lecture = ({ userDetails }) => {
               <p>Course: {hardwareDetails.course}</p>
               {showForm && (
                 <form onSubmit={handleSubmit}>
+<<<<<<< HEAD
                   <p>Pick date : <DatePicker
                     selected={startDate}
                     onChange={(date) => setStartDate(date)}
@@ -222,6 +223,30 @@ const Lecture = ({ userDetails }) => {
                     minTime={starttime}
                     maxTime={setHours(setMinutes(new Date(), 30), 18)}
                   /></p>
+=======
+                  <label>
+                    Start Time:
+                    <input
+                      type="datetime-local"
+                      value={sTime}
+                      onChange={(e) => setSTime(e.target.value)}
+                      required
+                    />
+                  </label>
+                  <br />
+                  <label>
+                    End Time:
+                    <input
+                      type="datetime-local"
+                      value={eTime}
+                      onChange={(e) => setETime(e.target.value)}
+                      required
+                    />
+                  </label>
+                  <br />
+                  <button type="submit">Submit</button>
+                  <button type="button" onClick={handleDelete}>Delete for hardware</button>
+>>>>>>> 58e7e3234f5019ebb1d8565506cb17c570bc24e3
                 </form>
               )}
             </div>

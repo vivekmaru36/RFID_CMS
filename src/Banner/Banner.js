@@ -22,6 +22,7 @@ export const Banner = () => {
                         <span className="wave-emoji">{emoji("👋")}</span>
                     </h1>
                     <h2>
+<<<<<<< HEAD
                         <span>
                             <span className="wrap">
                                 <Typewriter
@@ -37,6 +38,22 @@ export const Banner = () => {
                                         deleteSpeed: 50,
                                     }} />
                             </span>
+=======
+                    <span>
+                        <span className="wrap">
+                        <Typewriter
+                            options={{
+                            strings: [
+                            "09-Bhoomika Mamidi",
+                            "16-Deepali Jaiswar",
+                            "21-Vivek Maru",
+                            "48-Suraj Kahar"
+                            ],
+                            autoStart: true,
+                            loop: true,
+                            deleteSpeed: 50,
+                            }}/>
+>>>>>>> 58e7e3234f5019ebb1d8565506cb17c570bc24e3
                         </span>
                     </h2>
 

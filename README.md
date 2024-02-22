@@ -15,6 +15,7 @@ node server
 ```
 # changes for node :
 
+<<<<<<< HEAD
 1) added functionality for rfid to be unique for both the db note : student--> numercirfid and teacher --> rfidno 
 2) Logout Done by deleting the cookie in dashboard.js/handleItemClick and server.js/logout
 3) Login done with logout deleting the token from cookies
@@ -34,6 +35,11 @@ node server
 17) Handled attendance for everyone including anonyomous with respect to lec
 18) Removed one lec room from deepali branch
 19) Update attendance record format based on user details with respect to present / absent 
+=======
+1) removd one course box from lecture page
+2) Add dropdownlist to the signup form
+
+>>>>>>> 58e7e3234f5019ebb1d8565506cb17c570bc24e3
 
 # changes :
 
