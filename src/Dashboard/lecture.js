@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
+import { addDays,setHours,setMinutes } from 'date-fns';
+
 const Lecture = ({ userDetails }) => {
   const [lectures, setLectures] = useState([
     { id: 'lec1', teacher: 'Mr.Aditya', subject: 'CS', etime: '1:00 PM', stime: '2:00 PM', venue: 'Hardware Lab' },
@@ -149,6 +154,14 @@ const Lecture = ({ userDetails }) => {
     }
   };
 
+  // pick Date
+  const [startDate, setStartDate] = useState(new Date());
+
+  // pick stime 
+  const [starttime, setStarttime] = useState(new Date());
+
+  // pick etime 
+  const [endtime, setEndtime] = useState(starttime);
 
   if (role === 's') {
     return (
@@ -180,28 +193,35 @@ const Lecture = ({ userDetails }) => {
               <p>Course: {hardwareDetails.course}</p>
               {showForm && (
                 <form onSubmit={handleSubmit}>
-                  <label>
-                    Start Time:
-                    <input
-                      type="datetime-local"
-                      value={sTime}
-                      onChange={(e) => setSTime(e.target.value)}
-                      required
-                    />
-                  </label>
-                  <br />
-                  <label>
-                    End Time:
-                    <input
-                      type="datetime-local"
-                      value={eTime}
-                      onChange={(e) => setETime(e.target.value)}
-                      required
-                    />
-                  </label>
-                  <br />
-                  <button type="submit">Submit</button>
-                  <button type="button" onClick={handleDelete}>Delete for hardware</button>
+                  <p>Pick date : <DatePicker
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    minDate={new Date()}
+                    maxDate={addDays(new Date(), 2)} /></p>
+
+                  <p>Start Time : <DatePicker
+                    selected={starttime}
+                    onChange={(date) => setStarttime(date)}
+                    showTimeSelect
+                    showTimeSelectOnly
+                    timeIntervals={15}
+                    timeCaption="Time"
+                    dateFormat="h:mm aa"
+                    minTime={setHours(setMinutes(new Date(), 0), 8)}
+                    maxTime={setHours(setMinutes(new Date(), 30), 18)}
+                  /></p>
+
+                  <p>End Time : <DatePicker
+                    selected={endtime}
+                    onChange={(date) => setEndtime(date)}
+                    showTimeSelect
+                    showTimeSelectOnly
+                    timeIntervals={15}
+                    timeCaption="Time"
+                    dateFormat="h:mm aa"
+                    minTime={starttime}
+                    maxTime={setHours(setMinutes(new Date(), 30), 18)}
+                  /></p>
                 </form>
               )}
             </div>

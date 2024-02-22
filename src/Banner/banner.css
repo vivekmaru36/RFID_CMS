@@ -25,7 +25,7 @@ body{
   margin: 0;
   position: relative;
 }
-li {
+.banner-li {
   position: absolute;
   border-radius: 50%;
   display: flex;

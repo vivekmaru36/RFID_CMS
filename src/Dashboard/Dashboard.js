@@ -117,60 +117,6 @@ const Dashboard = () => {
     }
   };
 
-
-
-  const [student, _setStudent] = useState({
-    firstName: '',
-    lastName: '',
-    // Other student details...
-  });
-
-  const [role, setrole] = useState('');   // assigning the roles to help
-
-  const handleTimeChange = (e, lectureId) => {
-    // Handle input change and store data in state or send it to the API
-    const newTime = e.target.value;
-    // Update the lecture item in the state or perform API call to send the data
-    // Update the lectures state with the modified lecture item
-    setLectures(prevLectures =>
-      prevLectures.map(lecture =>
-        lecture.id === lectureId ? { ...lecture, time: newTime } : lecture
-      )
-    );
-  };
-
-
-  const handleSubjectChange = (e, lectureId) => {
-    // Handle input change and store data in state or send it to the API
-    const newSubject = e.target.value;
-    // Update the lecture item in the state or perform API call to send the data
-    setLectures(prevLectures =>
-      prevLectures.map(lecture =>
-        lecture.id === lectureId ? { ...lecture, subject: newSubject } : lecture
-      )
-    );
-  };
-
-  const handleDataSubmit = async (lectureId) => {
-    // Fetch the lecture item by ID or use the stored value in state
-    const lectureToUpdate = lectures.find(lecture => lecture.id === lectureId);
-
-    try {
-      // Make an API call to send the updated data for this lecture
-      await axios.put('YOUR_API_ENDPOINT', {
-        lectureId: lectureToUpdate.id,
-        newTime: lectureToUpdate.time,
-        newSubject: lectureToUpdate.subject,
-        // Other relevant data to update
-      });
-      // Handle success or feedback if needed
-    } catch (error) {
-      console.error('Error updating data:', error);
-      // Handle error state if needed
-    }
-  };
-
-
   return (
     <div className="dashboard-container">
       <div className="greeting">

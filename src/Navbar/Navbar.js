@@ -19,7 +19,7 @@ const Navbar = () => {
   }
 
   return (
-    <nav>
+    <nav className="home-nav">
       <Link to="/" className="link">
         <div className="logo">RFID_CMS</div>
         

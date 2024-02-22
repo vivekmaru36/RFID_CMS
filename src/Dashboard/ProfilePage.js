@@ -5,27 +5,6 @@ import Cookies from 'js-cookie';
 import axios from "axios";
 
 const ProfilePage = ({ rfid }) => {
-  // const [profileData, setProfileData] = useState(null);
-
-  // useEffect(() => {
-  //   // Fetch user profile data based on RFID from your backend
-  //   const fetchProfileData = async () => {
-  //     try {
-  //       const response = await fetch(`YOUR_BACKEND_API_ENDPOINT/${ rfid}`);
-  //       if (response.ok) {
-  //         const data = await response.json();
-  //         setProfileData(data);
-  //       } else {
-  //         console.error('Failed to fetch profile data');
-  //       }
-  //     } catch (error) {
-  //       console.error('Error fetching profile data:', error);
-  //     }
-  //   };
-
-  //   // Call the function to fetch data when the component mounts
-  //   fetchProfileData();
-  // }, [rfid]);
 
   const [userDetails, setUserDetails] = useState({
     fname: '',

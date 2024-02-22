@@ -8,7 +8,7 @@
 
 .dashboard-container {
   display: grid;
-  height: 79vh;
+  height: 100vh;
   /* background-color: #ffffff; White background */
   background-color: #081334; /* black background */
   
