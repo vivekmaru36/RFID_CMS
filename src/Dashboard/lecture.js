@@ -4,7 +4,7 @@ import axios from 'axios';
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
-import { addDays,setHours,setMinutes } from 'date-fns';
+import { addDays, setHours, setMinutes } from 'date-fns';
 
 const Lecture = ({ userDetails }) => {
   const [lectures, setLectures] = useState([
@@ -24,9 +24,10 @@ const Lecture = ({ userDetails }) => {
     try {
       const response = await axios.post("http://127.0.0.1:5000/setlec", {
         Teacher: userDetails.fname,
-        sTime: new Date(sTime).toISOString(), // Convert to UTC before sending
+        sTime: new Date().toISOString(), // Convert to UTC before sending
         eTime: new Date(eTime).toISOString(), // Convert to UTC before sending
         course: course,
+        subject:Subject
       });
 
       console.log("Hardware update submitted successfully:", response.data);
@@ -163,6 +164,9 @@ const Lecture = ({ userDetails }) => {
   // pick etime 
   const [endtime, setEndtime] = useState(starttime);
 
+  // pick subject
+  const [Subject, setSubject] = useState('');
+
   if (role === 's') {
     return (
       <div className="lecture-content">
@@ -222,6 +226,12 @@ const Lecture = ({ userDetails }) => {
                     minTime={starttime}
                     maxTime={setHours(setMinutes(new Date(), 30), 18)}
                   /></p>
+                  <p>
+                    Give Subject : <input type="text" placeholder='Subject' value={Subject} onChange={(e) => setSubject(e.target.value)} required />
+                  </p>
+                  <p>
+                    <button type='submit'>Submit</button>
+                  </p>
                 </form>
               )}
             </div>

@@ -7,6 +7,10 @@ const hardwareschema = new mongoose.Schema({
         type:String,
         required: true,
     },
+    Lecdate :{
+        type:Date,
+        required:true,
+    },
     sTime:{
         type:Date,
         required:true,
@@ -27,6 +31,9 @@ const hardwareschema = new mongoose.Schema({
         type:String,
         required:true,
     },
+    subject:{
+        type : String
+    }
 });
 
 module.exports = mongoose.model("hardware", hardwareschema);
