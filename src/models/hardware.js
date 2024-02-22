@@ -33,7 +33,11 @@ const hardwareschema = new mongoose.Schema({
     },
     subject:{
         type : String
-    }
+    },
+    rfidno: {
+        type: String,
+        required: true,
+    },
 });
 
 module.exports = mongoose.model("hardware", hardwareschema);

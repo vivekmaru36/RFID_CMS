@@ -7,11 +7,15 @@ import Cookies from 'js-cookie';
 import "react-datepicker/dist/react-datepicker.css";
 import { addDays, setHours, setMinutes } from 'date-fns';
 
-const Lecture = ({ userDetails }) => {
+const Lecture = ({ userDetails,userinfo }) => {
   const [lectures, setLectures] = useState([
     { id: 'lec1', teacher: 'Mr.Aditya', subject: 'CS', etime: '1:00 PM', stime: '2:00 PM', venue: 'Hardware Lab' },
     { id: 'lec2', teacher: 'Ms. Beena', subject: 'BDA', etime: '1:00 PM', stime: '2:00 PM', venue: '1 Law' }
   ]);
+
+  // console.log("This is : ",props);
+  console.log("This is userinfo from lec : ",userinfo);
+ 
 
   const [role, setRole] = useState(userDetails && userDetails.role);
   const [teacher, setTeacher] = useState("");
@@ -30,6 +34,7 @@ const Lecture = ({ userDetails }) => {
         eTime: new Date(endtime).toISOString(), 
         course: course,
         subject:Subject,
+        rfidno: userinfo.rfidno || userinfo.numericRfid,
       });
 
       console.log("Hardware update submitted successfully:", response.data);

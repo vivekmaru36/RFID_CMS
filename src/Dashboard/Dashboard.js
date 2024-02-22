@@ -15,8 +15,11 @@ import { useNavigate } from 'react-router-dom';
 
 import Lecture from './lecture'
 
-const Dashboard = () => {
+const Dashboard = ({userinfo}) => {
 
+  // console.log("This is userinfo : ",userinfo);
+  // const userinfod=userinfo;
+  // console.log("This is userinfod : ",userinfod);
   // navigate initialization
   const navigate = useNavigate()
 
@@ -141,7 +144,7 @@ const Dashboard = () => {
       <div className={`content-area ${isMenuOpen ? 'open' : ''}`}>
         {selectedItem === 'Profile' && <ProfilePage />}
         {selectedItem === 'Attendance' && <AttendancePage />} {/* Display AttendancePage when 'Attendance' is selected */}
-        {selectedItem === 'Lectures' && <Lecture userDetails={userDetails} />} {/* Display Lecture when 'lecture' is selected */}
+        {selectedItem === 'Lectures' && <Lecture userDetails={userDetails} userinfo={userinfo} />} {/* Display Lecture when 'lecture' is selected */}
       </div>
 
     </div>
