@@ -102,11 +102,31 @@
     outline: none; /* Remove the default focus outline if needed */
 }
 
+
+#currentYear{
+    position: relative;
+    display: flex;
+    left:65px;
+    width: 77.5%;
+    align-items: center;
+    margin-bottom:10px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid #0000001f;
+    border-radius: 20px;
+    color: black;
+    margin: 0 0 8px 0;
+    padding: 18px 36px;
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: 0.8px;
+    transition: 0.3s ease-in-out;
+}
+
 #course{
     position: relative;
     display: flex;
     left:65px;
-    width: 79%;
+    width: 77.5%;
     align-items: center;
     margin-bottom:10px;
     background: rgba(255, 255, 255, 0.1);

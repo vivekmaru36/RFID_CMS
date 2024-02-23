@@ -28,9 +28,9 @@ export const Banner = () => {
                                     options={{
                                         strings: [
                                             "09-Bhoomika Mamidi",
-                                            "16-Deepali",
+                                            "16-Deepali Jaiswar",
                                             "21-Vivek Maru",
-                                            "48-Suraj"
+                                            "48-Suraj Kahar"
                                         ],
                                         autoStart: true,
                                         loop: true,
