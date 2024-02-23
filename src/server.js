@@ -40,6 +40,7 @@ const hardware = require("./models/hardware");
 const checkAuth = require("./middleware/checkAuth");
 
 const rfid_h = require("./models/rfid_h");
+const law = require("./models/Law");
 
 
 const JWT_SECRECT_KEY = "47d39093940795f6c54900b31345b29d3ff30bd9ac8510ea35b90feb3d25ab678bd50cc5e7d13e02ce6a1f1d8c5cd729c2fa"
@@ -321,7 +322,7 @@ app.get('/user-details', checkAuth, async (req, res) => {
 });
 
 app.post('/setlec', async (req, res) => {
-  const { Teacher, sTime, eTime, course,subject,Lecdate,rfidno } = req.body;
+  const { Teacher, sTime, eTime, course, subject, Lecdate, rfidno } = req.body;
 
   try {
     // Check if a document already exists
@@ -356,6 +357,42 @@ app.post('/setlec', async (req, res) => {
   }
 });
 
+app.post('/setlec2', async (req, res) => {
+  const { Teacher, sTime, eTime, course, subject, Lecdate, rfidno } = req.body;
+
+  try {
+    // Check if a document already exists
+    const existingDocument = await law.findOne();
+
+    if (existingDocument) {
+      // Document already exists, send an error response
+      return res.status(400).json({ success: false, message: 'A document already exists in 1 Law' });
+    }
+
+    // No existing document found, proceed to save a new one
+    const Lawdetails = new law({
+      Teacher,
+      sTime,
+      eTime,
+      course,
+      subject,
+      Lecdate,
+      rfidno
+    });
+
+    await Lawdetails.save();
+
+    const tokenlec2 = jwt.sign({ Lawdetails }, JWT_SECRECT_KEY, {
+      expiresIn: "1d",
+    });
+
+    res.cookie("tokenlec2", tokenlec2, { httpOnly: true, sameSite: "Strict", secure: true }).status(200).json({ success: true, "tokenlec2": tokenlec2 });
+  } catch (error) {
+    console.error('Error updating 1Law lec details:', error);
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
+  }
+});
+
 app.get('/getlec1', async (req, res) => {
 
   try {
@@ -371,6 +408,25 @@ app.get('/getlec1', async (req, res) => {
     res.status(200).json({ success: true, hardwaredetails });
   } catch (error) {
     console.error('Error Fetching lec1 details:', error);
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
+  }
+});
+
+app.get('/getlec2', async (req, res) => {
+
+  try {
+    // Check if a document already exists
+    const Lawdetails = await law.findOne();
+
+    if (!Lawdetails) {
+      // NO Document exists, send an error response
+      return res.status(404).json({ success: false, message: 'No 1 Law details available.' });
+    }
+
+    // Document found, send the details in the response
+    res.status(200).json({ success: true, Lawdetails });
+  } catch (error) {
+    console.error('Error Fetching lec2 details:', error);
     res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
 });
@@ -398,16 +454,38 @@ app.delete('/deletelec', async (req, res) => {
   }
 });
 
+// force del for respective tea in 1 Law
+app.delete('/deletelec2', async (req, res) => {
+  const { fname } = req.body;
+
+  try {
+    // Check if the user is a teacher and present in 1 Law
+    const isTeacher = await law.findOne({ Teacher: fname });
+
+    if (isTeacher) {
+      // If the user is a teacher, delete all data from the hardware collection
+      await law.deleteMany({ Teacher: fname });
+
+      return res.status(200).json({ success: true, message: '1 Law data deleted successfully.' });
+    } else {
+      return res.status(403).json({ success: false, message: 'Access forbidden. Only teachers can delete 1 Law data.' });
+    }
+  } catch (error) {
+    console.error('Error deleting 1 Law data:', error);
+    res.status(500).json({ success: false, message: 'Internal Server Error' });
+  }
+});
+
 // auto del api
-app.delete('/autodeletelec', async (req, res) => {
+app.delete('/autodeletelecL', async (req, res) => {
   // const { etime } = req.body;
   try {
-    // Delete all documents from the hardware collection
+    // Delete all documents from the 1 Law collection
     const result = await hardware.deleteMany({});
 
-    return res.status(200).json({ success: true, message: `All hardware data deleted successfully. ${result.deletedCount} documents deleted.` });
+    return res.status(200).json({ success: true, message: `All 1 Law data deleted successfully. ${result.deletedCount} documents deleted.` });
   } catch (error) {
-    console.error('Error deleting all hardware data:', error);
+    console.error('Error deleting all 1 Law data:', error);
     res.status(500).json({ success: false, message: 'Internal Server Error' });
   }
 });
@@ -546,7 +624,7 @@ app.post('/hrfid', async (req, res) => {
 app.get('/AttendanceRecords', async (req, res) => {
   try {
     const { numericRFID } = req.query; // Access query parameters instead of params
-    console.log('Server rfid : ',numericRFID);
+    console.log('Server rfid : ', numericRFID);
     // Fetch attendance records for the given numericRFID, excluding the password field
     const attendanceRecords = await rfid_h.find({ numericRFID }).select('-details.password');
     console.log(attendanceRecords)
